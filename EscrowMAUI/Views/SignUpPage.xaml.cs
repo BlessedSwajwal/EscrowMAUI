@@ -2,22 +2,14 @@ using EscrowMAUI.ViewModel;
 
 namespace EscrowMAUI.Views;
 
-public partial class LoginPage : ContentPage
+public partial class SignUpPage : ContentPage
 {
     private readonly LoginViewModel _loginViewModel;
-
-    public LoginPage(LoginViewModel loginViewModel)
+    public SignUpPage(LoginViewModel loginViewModel)
     {
         InitializeComponent();
-        BindingContext = loginViewModel;
         _loginViewModel = loginViewModel;
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        EmailEntry.Text = "";
-        PasswordEntry.Text = "";
+        BindingContext = _loginViewModel;
     }
 
     private void UserTypeButton_Clicked(object sender, EventArgs e)
@@ -40,7 +32,11 @@ public partial class LoginPage : ContentPage
 
     private void Form_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (EmailValidationBehavior.IsValid)
+        if (EmailValidationBehavior.IsValid &&
+            FirstNameValidationBehavior.IsValid &&
+            LastNameValidationBehavior.IsValid &&
+            PhoneValidationBehavior.IsValid &&
+            PasswordValidationBehavior.IsValid)
         {
             _loginViewModel.IsFormValid = true;
         }
@@ -49,9 +45,14 @@ public partial class LoginPage : ContentPage
             _loginViewModel.IsFormValid = false;
         }
     }
-
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync($"{nameof(SignUpPage)}");
+        await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        FirstNameEntry.Text = LastNameEntry.Text = EmailEntry.Text = PasswordEntry.Text = PhoneEntry.Text = "";
     }
 }

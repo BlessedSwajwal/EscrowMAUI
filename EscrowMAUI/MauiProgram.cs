@@ -23,6 +23,7 @@ namespace EscrowMAUI
 
             {
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
+                builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
             }
 
 #if DEBUG

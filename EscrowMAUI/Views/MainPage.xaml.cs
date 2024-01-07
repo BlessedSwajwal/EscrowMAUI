@@ -11,4 +11,11 @@ public partial class MainPage : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
     }
+
+    private void Button_Pressed(object sender, EventArgs e)
+    {
+        var btn = (Button)sender;
+        btn.BackgroundColor = Colors.DimGray;
+    }
+
 }

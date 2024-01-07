@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="EscrowMAUI.Views.LoginPage"
-             x:DataType="vm:LoginViewModel"
-             Title="Login"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="{StaticResource BackgroundColor}">
+<ContentPage
+    x:Class="EscrowMAUI.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="Login"
+    x:DataType="vm:LoginViewModel"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -18,75 +19,76 @@
         </Style>
         <Style TargetType="Entry">
             <Setter Property="PlaceholderColor" Value="Gray" />
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="TextColor" Value="DarkSalmon"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextColor" Value="DarkSalmon" />
         </Style>
-        <Style TargetType="Border" x:Name="EntryBorder">
+        <Style x:Name="EntryBorder" TargetType="Border">
             <Setter Property="Padding" Value="7" />
             <Setter Property="StrokeShape" Value="RoundRectangle, 20" />
         </Style>
     </ContentPage.Resources>
-    
-    <!--Main border-->
-    <Border Stroke="Brown"
-            StrokeThickness="2"
-            BackgroundColor="#F9F7C9"
-            HorizontalOptions="Center"
-            HeightRequest="600"
-            StrokeShape="RoundRectangle 20"
-            Padding="30">
-        <VerticalStackLayout Spacing="40">
-            <Grid ColumnDefinitions="*, *"
-                  ColumnSpacing="10">
-                
-                <!--Styles for the button stored in local resource dictionary of the grid-->
+
+    <!--  Main border #F9F7C9  -->
+    <Border
+        Padding="30"
+        BackgroundColor="White"
+        HeightRequest="600"
+        HorizontalOptions="Center"
+        Stroke="Brown"
+        StrokeShape="RoundRectangle 20"
+        StrokeThickness="2">
+        <VerticalStackLayout Spacing="30">
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+
+                <!--  Styles for the button stored in local resource dictionary of the grid  -->
                 <Grid.Resources>
                     <Style TargetType="Button">
+                        <Setter Property="CornerRadius" Value="30" />
                         <Setter Property="BackgroundColor" Value="AntiqueWhite" />
-                        <Setter Property="Padding" Value="20"/>
-                        <Setter Property="FontAttributes" Value="Bold"/>
+                        <Setter Property="Padding" Value="20" />
+                        <Setter Property="FontAttributes" Value="Bold" />
                         <Setter Property="FontSize" Value="18" />
                         <Setter Property="TextColor" Value="Magenta" />
                     </Style>
                 </Grid.Resources>
-                
-                <!--Two buttons for two type of users-->
-                <Button Grid.Column="0"
-                        x:Name="ConsumerButton"
-                        Text="CONSUMER"
-                        BackgroundColor="Blue"
-                        BorderColor="Azure"
-                        BorderWidth="2"
-                        Clicked="UserTypeButton_Clicked">
-                    
-                </Button>
-                <Button Grid.Column="1"
-                        Text="PROVIDER"
-                        x:Name="ProviderButton"
-                        BorderColor="Azure"
-                        BorderWidth="2"
-                    Clicked="UserTypeButton_Clicked">
 
-                </Button>
+                <!--  Two buttons for two type of users  -->
+                <Button
+                    x:Name="ConsumerButton"
+                    Grid.Column="0"
+                    BackgroundColor="Blue"
+                    BorderColor="Azure"
+                    BorderWidth="2"
+                    Clicked="UserTypeButton_Clicked"
+                    Text="CONSUMER" />
+                <Button
+                    x:Name="ProviderButton"
+                    Grid.Column="1"
+                    BorderColor="Azure"
+                    BorderWidth="2"
+                    Clicked="UserTypeButton_Clicked"
+                    Text="PROVIDER" />
             </Grid>
-            <Label Text="Login"
-                   TextColor="Black"
-                   FontSize="20"/>
+            <Label
+                FontSize="20"
+                Text="Login"
+                TextColor="Black" />
             <VerticalStackLayout>
                 <Label Text="Email: " />
                 <Border>
-                    <Entry Placeholder="Email"
-                           x:Name="EmailEntry"
-                           WidthRequest="250"
-                           TextChanged="Form_TextChanged"
-                           Text="{Binding Email, Mode=OneWayToSource}">
+                    <Entry
+                        x:Name="EmailEntry"
+                        Placeholder="Email"
+                        Text="{Binding Email, Mode=OneWayToSource}"
+                        TextChanged="Form_TextChanged"
+                        WidthRequest="250">
                         <Entry.Behaviors>
                             <toolkit:TextValidationBehavior
                                 x:Name="EmailValidationBehavior"
-                                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                ValidStyle="{StaticResource ValidEntryStyle}"
                                 Flags="ValidateOnValueChanged"
-                                RegexPattern="{Binding EmailRegex}"/>
+                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                RegexPattern="{Binding EmailRegex}"
+                                ValidStyle="{StaticResource ValidEntryStyle}" />
                         </Entry.Behaviors>
                     </Entry>
                 </Border>
@@ -94,30 +96,34 @@
             <VerticalStackLayout>
                 <Label Text="Password: " />
                 <Border>
-                    <Entry Placeholder="Password"
-                           x:Name="PasswordEntry"
-                           IsPassword="True"
-                           WidthRequest="250"
-                           Margin="-2"
-                           Text="{Binding Password, Mode=OneWayToSource}"
-                           />
+                    <Entry
+                        x:Name="PasswordEntry"
+                        Margin="-2"
+                        IsPassword="True"
+                        Placeholder="Password"
+                        Text="{Binding Password, Mode=OneWayToSource}"
+                        WidthRequest="250" />
                 </Border>
             </VerticalStackLayout>
 
-            <Button Text="Log In"
-                    CornerRadius="20" 
-                    Padding="0, 20"
-                    Command="{Binding LoginRequestedCommand}"
-                    IsEnabled="{Binding IsFormValid}">
-            </Button>
-            <HorizontalStackLayout Spacing="10"
-                                   HorizontalOptions="Center">
-                <Label Text="Don't have account?"/>
-                <Label Text="Sign Up"
-                       TextColor="Orange"
-                       TextDecorations="Underline"/>
+            <Button
+                Padding="0,20"
+                Command="{Binding LoginRequestedCommand}"
+                CornerRadius="20"
+                IsEnabled="{Binding IsFormValid}"
+                Text="Log In" />
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Label Text="Don't have account?" />
+                <Label
+                    Text="Sign Up"
+                    TextColor="Orange"
+                    TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
             </HorizontalStackLayout>
         </VerticalStackLayout>
-        
+
     </Border>
 </ContentPage>

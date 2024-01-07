@@ -9,11 +9,23 @@ public partial class LoginViewModel : ObservableObject
     {
 
     }
-    [ObservableProperty]
-    string email;
 
     [ObservableProperty]
-    string password;
+    string _passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+
+
+    [ObservableProperty]
+    string _firstName;
+    [ObservableProperty]
+    string _lastName;
+    [ObservableProperty]
+    string _phone;
+
+    [ObservableProperty]
+    string _email;
+
+    [ObservableProperty]
+    string _password;
 
     [ObservableProperty]
     bool _isFormValid = false;
@@ -22,10 +34,16 @@ public partial class LoginViewModel : ObservableObject
     string _selectedUserType = "consumer";
 
     [ObservableProperty]
-    string emailRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+    string _emailRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
     [RelayCommand]
     async Task LoginRequested()
+    {
+        await Task.CompletedTask;
+    }
+
+    [RelayCommand]
+    async Task RegisterRequested()
     {
         await Task.CompletedTask;
     }
