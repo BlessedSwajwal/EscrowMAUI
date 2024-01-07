@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="EscrowMAUI.Views.LoginPage"
              x:DataType="vm:LoginViewModel"
              Title="Login"
@@ -9,26 +10,65 @@
              BackgroundColor="{StaticResource BackgroundColor}">
 
     <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
         <Style TargetType="Entry">
-            <!--<Setter Property="BackgroundColor" Value="#AAD9BB"/>-->
             <Setter Property="PlaceholderColor" Value="Gray" />
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="TextColor" Value="DarkSalmon"/>
-            <!--<Setter Property="BackgroundColor" Value="#B9CAAC"/>-->
         </Style>
         <Style TargetType="Border" x:Name="EntryBorder">
             <Setter Property="Padding" Value="7" />
             <Setter Property="StrokeShape" Value="RoundRectangle, 20" />
         </Style>
     </ContentPage.Resources>
+    
+    <!--Main border-->
     <Border Stroke="Brown"
             StrokeThickness="2"
             BackgroundColor="#F9F7C9"
             HorizontalOptions="Center"
-            HeightRequest="500"
+            HeightRequest="600"
             StrokeShape="RoundRectangle 20"
             Padding="30">
         <VerticalStackLayout Spacing="40">
+            <Grid ColumnDefinitions="*, *"
+                  ColumnSpacing="10">
+                
+                <!--Styles for the button stored in local resource dictionary of the grid-->
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="AntiqueWhite" />
+                        <Setter Property="Padding" Value="20"/>
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="TextColor" Value="Magenta" />
+                    </Style>
+                </Grid.Resources>
+                
+                <!--Two buttons for two type of users-->
+                <Button Grid.Column="0"
+                        x:Name="ConsumerButton"
+                        Text="CONSUMER"
+                        BackgroundColor="Blue"
+                        BorderColor="Azure"
+                        BorderWidth="2"
+                        Clicked="UserTypeButton_Clicked">
+                    
+                </Button>
+                <Button Grid.Column="1"
+                        Text="PROVIDER"
+                        x:Name="ProviderButton"
+                        BorderColor="Azure"
+                        BorderWidth="2"
+                    Clicked="UserTypeButton_Clicked">
+
+                </Button>
+            </Grid>
             <Label Text="Login"
                    TextColor="Black"
                    FontSize="20"/>
@@ -37,7 +77,18 @@
                 <Border>
                     <Entry Placeholder="Email"
                            x:Name="EmailEntry"
-                           WidthRequest="250"/>
+                           WidthRequest="250"
+                           TextChanged="Form_TextChanged"
+                           Text="{Binding Email, Mode=OneWayToSource}">
+                        <Entry.Behaviors>
+                            <toolkit:TextValidationBehavior
+                                x:Name="EmailValidationBehavior"
+                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                ValidStyle="{StaticResource ValidEntryStyle}"
+                                Flags="ValidateOnValueChanged"
+                                RegexPattern="{Binding EmailRegex}"/>
+                        </Entry.Behaviors>
+                    </Entry>
                 </Border>
             </VerticalStackLayout>
             <VerticalStackLayout>
@@ -48,13 +99,17 @@
                            IsPassword="True"
                            WidthRequest="250"
                            Margin="-2"
+                           Text="{Binding Password, Mode=OneWayToSource}"
                            />
                 </Border>
             </VerticalStackLayout>
 
             <Button Text="Log In"
                     CornerRadius="20" 
-                    Padding="0, 20"/>
+                    Padding="0, 20"
+                    Command="{Binding LoginRequestedCommand}"
+                    IsEnabled="{Binding IsFormValid}">
+            </Button>
             <HorizontalStackLayout Spacing="10"
                                    HorizontalOptions="Center">
                 <Label Text="Don't have account?"/>
