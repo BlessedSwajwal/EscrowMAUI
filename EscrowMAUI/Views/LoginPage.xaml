@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+             x:Class="EscrowMAUI.Views.LoginPage"
+             x:DataType="vm:LoginViewModel"
+             Title="Login"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource BackgroundColor}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Entry">
+            <!--<Setter Property="BackgroundColor" Value="#AAD9BB"/>-->
+            <Setter Property="PlaceholderColor" Value="Gray" />
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="DarkSalmon"/>
+            <!--<Setter Property="BackgroundColor" Value="#B9CAAC"/>-->
+        </Style>
+        <Style TargetType="Border" x:Name="EntryBorder">
+            <Setter Property="Padding" Value="7" />
+            <Setter Property="StrokeShape" Value="RoundRectangle, 20" />
+        </Style>
+    </ContentPage.Resources>
+    <Border Stroke="Brown"
+            StrokeThickness="2"
+            BackgroundColor="#F9F7C9"
+            HorizontalOptions="Center"
+            HeightRequest="500"
+            StrokeShape="RoundRectangle 20"
+            Padding="30">
+        <VerticalStackLayout Spacing="40">
+            <Label Text="Login"
+                   TextColor="Black"
+                   FontSize="20"/>
+            <VerticalStackLayout>
+                <Label Text="Email: " />
+                <Border>
+                    <Entry Placeholder="Email"
+                           x:Name="EmailEntry"
+                           WidthRequest="250"/>
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Password: " />
+                <Border>
+                    <Entry Placeholder="Password"
+                           x:Name="PasswordEntry"
+                           IsPassword="True"
+                           WidthRequest="250"
+                           Margin="-2"
+                           />
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Log In"
+                    CornerRadius="20" 
+                    Padding="0, 20"/>
+            <HorizontalStackLayout Spacing="10"
+                                   HorizontalOptions="Center">
+                <Label Text="Don't have account?"/>
+                <Label Text="Sign Up"
+                       TextColor="Orange"
+                       TextDecorations="Underline"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
+    </Border>
+</ContentPage>

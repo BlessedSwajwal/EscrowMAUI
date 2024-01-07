@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using EscrowMAUI.ViewModel;
+using EscrowMAUI.Views;
 using Microsoft.Extensions.Logging;
 
 namespace EscrowMAUI
@@ -18,6 +20,10 @@ namespace EscrowMAUI
                     fonts.AddFont("Cinnamon.ttf", "Cinnamon");
                 })
                 .UseMauiCommunityToolkit();
+
+            {
+                builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
+            }
 
 #if DEBUG
             builder.Logging.AddDebug();
