@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using EscrowMAUI.Constants;
 using EscrowMAUI.Models;
 using EscrowMAUI.Services;
 using EscrowMAUI.Views;
@@ -29,14 +30,6 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty]
     string _emailRegex = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
 
-    //TODO: Check if this is needed.
-    [ObservableProperty]
-    Problem _errors;
-
-    //TODO: Check if this is needed.
-    [ObservableProperty]
-    bool _errorOccured;
-
     [ObservableProperty]
     bool _isProcessing = false;
 
@@ -46,22 +39,19 @@ public partial class LoginViewModel : ObservableObject
         await Task.CompletedTask;
 
         IsProcessing = true;
-        ErrorOccured = false;
         var result = await _authServices.LoginAsync(User.Email, User.Password);
         await result.Match(
                 async userResponse =>
                 {
-                    Preferences.Default.Set("JwtToken", userResponse.Token);
+                    Preferences.Default.Set(EscrowConstants.TokenKeyConstant, userResponse.Token);
+                    Preferences.Default.Set(EscrowConstants.UserType, userResponse.UserType);
                     IsProcessing = false;
-                    ErrorOccured = true;
                     //TODO: Redirect to home page
-                    await Shell.Current.GoToAsync(nameof(MainPage));
+                    await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
                 },
                 async errorResponse =>
                 {
-                    Errors = errorResponse;
                     IsProcessing = false;
-                    ErrorOccured = true;
                     var toast = Toast.Make(errorResponse.Detail, ToastDuration.Short, 14);
                     await toast.Show();
                 }
@@ -73,5 +63,16 @@ public partial class LoginViewModel : ObservableObject
     {
         var uu = User;
         await Task.CompletedTask;
+    }
+
+    [RelayCommand]
+    async Task LoggedInCheck()
+    {
+        IsProcessing = true;
+        if (Preferences.Default.ContainsKey(EscrowConstants.TokenKeyConstant))
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+        }
+        return;
     }
 }

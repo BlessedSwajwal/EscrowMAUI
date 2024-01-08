@@ -5,10 +5,11 @@ namespace EscrowMAUI.Models;
 public partial class User : ObservableObject
 {
     public static User Empty => new User() { Id = Guid.Empty };
-    [ObservableProperty]
-    Guid _id;
+    public string FullName => FirstName + " " + LastName;
+    public Guid Id { get; set; }
     [ObservableProperty]
     string _firstName;
+
     [ObservableProperty]
     string _lastName;
     [ObservableProperty]
@@ -19,6 +20,6 @@ public partial class User : ObservableObject
     string _password;
     [ObservableProperty]
     string _userType;
-    [ObservableProperty]
-    string _token;
+
+    public string Token { get; set; }
 }

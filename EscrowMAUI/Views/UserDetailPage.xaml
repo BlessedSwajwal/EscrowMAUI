@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EscrowMAUI.Views.UserDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="Profile"
+    Padding="25,0"
+    x:DataType="vm:UserDetailViewModel"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Shell.TitleColor="Blue">
+
+    <VerticalStackLayout Spacing="10">
+        <BoxView
+            Margin="0,0,0,30"
+            BackgroundColor="Transparent"
+            HeightRequest="10"
+            Color="Transparent" />
+        <Label
+            FontSize="30"
+            Text="Profile Details:"
+            TextColor="Black"
+            VerticalOptions="Center" />
+
+        <!--  Name of the user  -->
+        <Grid ColumnDefinitions="*,*">
+            <Label FontSize="30" Text="Name:" />
+
+            <Label
+                Grid.Column="1"
+                FontSize="20"
+                Text="{Binding User.FullName}"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!--  Email  -->
+        <Grid ColumnDefinitions="*,*">
+            <Label FontSize="30" Text="Email:" />
+
+            <Label
+                Grid.Column="1"
+                FontSize="20"
+                Text="{Binding User.Email}"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!--  Phone  -->
+        <Grid ColumnDefinitions="*,*">
+            <Label FontSize="30" Text="Phone:" />
+
+            <Label
+                Grid.Column="1"
+                FontSize="20"
+                Text="{Binding User.Phone}"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!--  User Type  -->
+        <Grid ColumnDefinitions="*,*">
+            <Label FontSize="30" Text="User Type:" />
+
+            <Label
+                Grid.Column="1"
+                FontSize="20"
+                Text="{Binding User.UserType}"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <Button Clicked="Button_Clicked" Text="Orders" />
+    </VerticalStackLayout>
+</ContentPage>

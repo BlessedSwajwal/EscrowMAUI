@@ -32,10 +32,13 @@ namespace EscrowMAUI
             {
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
+                builder.Services.AddScopedWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
+                builder.Services.AddTransientWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
             }
 
             {
                 builder.Services.AddScoped<AuthServices>();
+                builder.Services.AddScoped<OrdersService>();
             }
 #if DEBUG
             builder.Logging.AddDebug();

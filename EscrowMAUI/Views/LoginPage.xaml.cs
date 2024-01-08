@@ -13,11 +13,12 @@ public partial class LoginPage : ContentPage
         _loginViewModel = loginViewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
         EmailEntry.Text = "";
         PasswordEntry.Text = "";
+        await _loginViewModel.LoggedInCheckCommand.ExecuteAsync(null);
     }
 
     private void UserTypeButton_Clicked(object sender, EventArgs e)
