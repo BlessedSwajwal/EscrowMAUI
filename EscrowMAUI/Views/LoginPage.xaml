@@ -79,7 +79,7 @@
                     <Entry
                         x:Name="EmailEntry"
                         Placeholder="Email"
-                        Text="{Binding Email, Mode=OneWayToSource}"
+                        Text="{Binding User.Email, Mode=OneWayToSource}"
                         TextChanged="Form_TextChanged"
                         WidthRequest="250">
                         <Entry.Behaviors>
@@ -101,7 +101,7 @@
                         Margin="-2"
                         IsPassword="True"
                         Placeholder="Password"
-                        Text="{Binding Password, Mode=OneWayToSource}"
+                        Text="{Binding User.Password, Mode=OneWayToSource}"
                         WidthRequest="250" />
                 </Border>
             </VerticalStackLayout>

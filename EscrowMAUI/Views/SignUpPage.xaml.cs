@@ -21,22 +21,27 @@ public partial class SignUpPage : ContentPage
         if (name == "ProviderButton")
         {
             ConsumerButton.BackgroundColor = Colors.AntiqueWhite;
-            _loginViewModel.SelectedUserType = "provider";
+            _loginViewModel.User.UserType = "provider";
         }
         else
         {
             ProviderButton.BackgroundColor = Colors.AntiqueWhite;
-            _loginViewModel.SelectedUserType = "consumer";
+            _loginViewModel.User.UserType = "consumer";
         }
     }
 
     private void Form_TextChanged(object sender, TextChangedEventArgs e)
     {
+        CheckValidation();
+    }
+
+    private void CheckValidation()
+    {
         if (EmailValidationBehavior.IsValid &&
-            FirstNameValidationBehavior.IsValid &&
-            LastNameValidationBehavior.IsValid &&
-            PhoneValidationBehavior.IsValid &&
-            PasswordValidationBehavior.IsValid)
+                    FirstNameValidationBehavior.IsValid &&
+                    LastNameValidationBehavior.IsValid &&
+                    PhoneValidationBehavior.IsValid &&
+                    PasswordValidationBehavior.IsValid)
         {
             _loginViewModel.IsFormValid = true;
         }
@@ -45,9 +50,16 @@ public partial class SignUpPage : ContentPage
             _loginViewModel.IsFormValid = false;
         }
     }
+
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+    }
+
+    protected override void OnChildRemoved(Element child, int oldLogicalIndex)
+    {
+        base.OnChildRemoved(child, oldLogicalIndex);
+        CheckValidation();
     }
 
     protected override void OnAppearing()

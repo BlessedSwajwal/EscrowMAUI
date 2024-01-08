@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using EscrowMAUI.Services;
 using EscrowMAUI.ViewModel;
 using EscrowMAUI.Views;
 using Microsoft.Extensions.Logging;
@@ -22,10 +23,20 @@ namespace EscrowMAUI
                 .UseMauiCommunityToolkit();
 
             {
+                builder.Services.AddScoped(sp => new HttpClient
+                {
+                    BaseAddress = new Uri("https://skskkc9d-7240.asse.devtunnels.ms/api/")
+                });
+            }
+
+            {
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
             }
 
+            {
+                builder.Services.AddScoped<AuthServices>();
+            }
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

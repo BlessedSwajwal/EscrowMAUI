@@ -29,12 +29,12 @@ public partial class LoginPage : ContentPage
         if (name == "ProviderButton")
         {
             ConsumerButton.BackgroundColor = Colors.AntiqueWhite;
-            _loginViewModel.SelectedUserType = "provider";
+            _loginViewModel.User.UserType = "provider";
         }
         else
         {
             ProviderButton.BackgroundColor = Colors.AntiqueWhite;
-            _loginViewModel.SelectedUserType = "consumer";
+            _loginViewModel.User.UserType = "consumer";
         }
     }
 
