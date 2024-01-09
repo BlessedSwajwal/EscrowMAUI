@@ -56,12 +56,15 @@
 	  <None Remove="Resources\Images\bank.svg" />
 	  <None Remove="Resources\Images\cash.svg" />
 	  <None Remove="Resources\Images\cashinhand.svg" />
+	  <None Remove="Resources\Images\refresh.svg" />
+	  <None Remove="Resources\Images\rightarrow.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Mapster" Version="7.4.0" />
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
@@ -70,7 +73,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\CreateOrderPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\OrderDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\OrdersPage.xaml">
@@ -82,10 +91,6 @@
 	  <MauiXaml Update="Views\UserDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\DTOs\" />
 	</ItemGroup>
 
 </Project>

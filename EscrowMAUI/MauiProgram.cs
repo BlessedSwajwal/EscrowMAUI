@@ -2,6 +2,7 @@
 using EscrowMAUI.Services;
 using EscrowMAUI.ViewModel;
 using EscrowMAUI.Views;
+using Mapster;
 using Microsoft.Extensions.Logging;
 
 namespace EscrowMAUI
@@ -23,7 +24,7 @@ namespace EscrowMAUI
                 .UseMauiCommunityToolkit();
 
             {
-                builder.Services.AddScoped(sp => new HttpClient
+                builder.Services.AddSingleton(sp => new HttpClient
                 {
                     BaseAddress = new Uri("https://skskkc9d-7240.asse.devtunnels.ms/api/")
                 });
@@ -33,12 +34,22 @@ namespace EscrowMAUI
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
                 builder.Services.AddScopedWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
-                builder.Services.AddTransientWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
+                builder.Services.AddScopedWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
+                builder.Services.AddTransientPopup<CreateOrderPopup, OrdersViewModel>();
+
+                builder.Services.AddScopedWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
             }
 
             {
                 builder.Services.AddScoped<AuthServices>();
                 builder.Services.AddScoped<OrdersService>();
+            }
+
+            {
+                //Mapster 
+                var config = TypeAdapterConfig.GlobalSettings;
+                config.Scan(typeof(MauiProgram).Assembly);
+                builder.Services.AddSingleton(config);
             }
 #if DEBUG
             builder.Logging.AddDebug();

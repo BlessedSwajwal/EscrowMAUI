@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EscrowMAUI.Views.OrderDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:EscrowMAUI.Models"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="Order Detail"
+    Padding="10"
+    x:DataType="vm:OrderDetailViewModel"
+    BackgroundColor="{StaticResource BackgroundColor}">
+    <ScrollView>
+        <ScrollView.Resources>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+        </ScrollView.Resources>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+
+                <!--  Order Id  -->
+                <Label
+                    FontSize="25"
+                    Text="Order Id: "
+                    VerticalOptions="Center" />
+                <Label
+                    LineBreakMode="MiddleTruncation"
+                    Text="{Binding Order.Id}"
+                    VerticalOptions="Center"
+                    WidthRequest="220" />
+            </HorizontalStackLayout>
+
+            <!--  Name of order  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Name: " />
+                <Label
+                    Grid.Column="1"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Order.Name}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    WidthRequest="260" />
+            </Grid>
+
+            <!--  Description  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Description: " />
+                <Label
+                    Grid.Column="1"
+                    LineBreakMode="WordWrap"
+                    Text="{Binding Order.Description}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    WidthRequest="260" />
+            </Grid>
+
+            <!--  Cost  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Cost: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.CostInRuppees}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Order Status  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Status: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.OrderStatus}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Allowed Days  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Allowed Days: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.AllowedDays}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Provider Id  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Provider Id: " />
+                <Label
+                    Grid.Column="1"
+                    LineBreakMode="CharacterWrap"
+                    Text="{Binding Order.ProviderId}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    WidthRequest="160" />
+            </Grid>
+
+            <!--  Accepted Date  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Accepted Date: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.AcceptedDate.Date}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Deadline  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Deadline: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.DeadLine.Date}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Payment  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Payment: " />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding Order.PaymentUri}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <!--  Payment  -->
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                <Label FontSize="25" Text="Accepted Bid: " />
+                <Label
+                    Grid.Column="1"
+                    LineBreakMode="CharacterWrap"
+                    Text="{Binding Order.AcceptedBid}"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    WidthRequest="180" />
+            </Grid>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="40"
+                Text="Bids:" />
+            <FlexLayout BindableLayout.ItemsSource="{Binding Order.Bids}" Direction="Column">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="model:Bid">
+                        <!--  Propesed Amount  -->
+                        <Border
+                            Padding="5"
+                            BackgroundColor="AliceBlue"
+                            Stroke="Brown"
+                            StrokeShape="RoundRectangle, 20"
+                            StrokeThickness="2">
+                            <VerticalStackLayout>
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                                    <Label FontSize="25" Text="Proposed Amount: " />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding ProposedAmount}"
+                                        TextDecorations="Underline"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                                <!--  Comment  -->
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                                    <Label FontSize="25" Text="Comment: " />
+                                    <Label
+                                        Grid.Column="1"
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding Comment}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="200" />
+                                </Grid>
+
+                                <!--  Accept Bid Button  -->
+                                <Button
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=CanAcceptBid}"
+                                    Text="Accept" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
