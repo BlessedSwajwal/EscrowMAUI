@@ -57,6 +57,7 @@
 	  <None Remove="Resources\Images\bank.svg" />
 	  <None Remove="Resources\Images\cash.svg" />
 	  <None Remove="Resources\Images\cashinhand.svg" />
+	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\refresh.svg" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
 	</ItemGroup>
@@ -78,6 +79,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ProviderViews\ProviderHomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CreateBidPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateOrderPopup.xaml">

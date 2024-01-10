@@ -3,14 +3,80 @@
     x:Class="EscrowMAUI.ProviderViews.ProviderHomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Provider Home">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+    xmlns:model="clr-namespace:EscrowMAUI.Models"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="Provider Home"
+    Padding="5"
+    x:DataType="vm:ProviderHomeViewModel"
+    IconImageSource="home.png">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
 
-        <Button Text="Go To Created Orders"
-                Clicked="Button_Clicked"/>
-    </VerticalStackLayout>
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button
+                    Clicked="Button_Clicked"
+                    HorizontalOptions="Center"
+                    Text="Go To Created Orders" />
+
+                <Button
+                    Grid.Column="2"
+                    Command="{Binding GoToUserDetailCommand}"
+                    HorizontalOptions="End"
+                    Text="User Detail" />
+            </Grid>
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="model:Order">
+                        <Border
+                            Padding="20,10"
+                            Background="White"
+                            StrokeShape="RoundRectangle, 20"
+                            StrokeThickness="2">
+                            <Border.Resources>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Border.Resources>
+                            <VerticalStackLayout>
+                                <!--  Order Name  -->
+                                <!--<HorizontalStackLayout Spacing="20">
+                                    <Label Text="Name: " />
+                                    <Label Text="{Binding Name}" />
+                                </HorizontalStackLayout>-->
+
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Name}" />
+
+                                <!--  Description  -->
+                                <HorizontalStackLayout>
+                                    <Label Text="Description: " />
+                                    <Label
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding Description}"
+                                        WidthRequest="200" />
+                                </HorizontalStackLayout>
+
+                                <!--  No of bids  -->
+                                <HorizontalStackLayout>
+                                    <Label Text="DeadLine: " />
+                                    <Label Text="{Binding DeadLine}" />
+                                </HorizontalStackLayout>
+
+                                <!--  Bid Button  -->
+                                <Button
+                                    Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ProviderHomeViewModel}}, Path=GoToOrderDetailCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    HorizontalOptions="End"
+                                    Text="View Details" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

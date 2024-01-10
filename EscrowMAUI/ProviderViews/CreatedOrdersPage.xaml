@@ -53,7 +53,11 @@
                                 </HorizontalStackLayout>
 
                                 <!--  Bid Button  -->
-                                <Button HorizontalOptions="End" Text="Bid" />
+                                <Button
+                                    Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CreatedOrdersViewModel}}, Path=GoToOrderDetailCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    HorizontalOptions="End"
+                                    Text="Detail" />
                             </VerticalStackLayout>
                         </Border>
                     </DataTemplate>

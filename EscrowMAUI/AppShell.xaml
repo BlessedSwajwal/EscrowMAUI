@@ -15,9 +15,5 @@
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
 
-    <ShellContent
-        Title=""
-        ContentTemplate="{DataTemplate pv:ProviderHomePage}"
-        Route="ProviderHomePage" />
 
 </Shell>

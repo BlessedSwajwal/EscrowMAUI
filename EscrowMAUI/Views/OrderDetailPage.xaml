@@ -19,6 +19,7 @@
             </Style>
         </ScrollView.Resources>
         <VerticalStackLayout>
+            <!--  Top Bar  -->
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <Image
                     Grid.Column="0"
@@ -50,6 +51,7 @@
                     Text="Order Id: "
                     VerticalOptions="Center" />
                 <Label
+                    x:Name="OrderIdLabel"
                     LineBreakMode="MiddleTruncation"
                     Text="{Binding Order.Id}"
                     VerticalOptions="Center"
@@ -170,6 +172,16 @@
                     WidthRequest="180" />
             </Grid>
 
+            <!--  Bid button for providers  -->
+            <Button
+                Margin="0,10"
+                BackgroundColor="Green"
+                HorizontalOptions="End"
+                IsVisible="{Binding CanBid}"
+                Pressed="Button_Pressed"
+                Released="Button_Released"
+                Text="Create Bid" />
+
             <Label
                 FontAttributes="Bold"
                 FontSize="40"
@@ -177,7 +189,7 @@
             <FlexLayout BindableLayout.ItemsSource="{Binding Order.Bids}" Direction="Column">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="model:Bid">
-                        <!--  Propesed Amount  -->
+
                         <Border
                             Padding="5"
                             BackgroundColor="AliceBlue"
@@ -185,11 +197,12 @@
                             StrokeShape="RoundRectangle, 20"
                             StrokeThickness="2">
                             <VerticalStackLayout>
+                                <!--  Propesed Amount  -->
                                 <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
                                     <Label FontSize="25" Text="Proposed Amount: " />
                                     <Label
                                         Grid.Column="1"
-                                        Text="{Binding ProposedAmount}"
+                                        Text="{Binding ProposedAmountInRuppees}"
                                         TextDecorations="Underline"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -203,6 +216,16 @@
                                         Text="{Binding Comment}"
                                         VerticalOptions="Center"
                                         WidthRequest="200" />
+                                </Grid>
+
+                                <!--  Bid Status  -->
+                                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="30">
+                                    <Label FontSize="25" Text="Status: " />
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding BidStatus}"
+                                        TextColor="Red"
+                                        VerticalOptions="Center" />
                                 </Grid>
 
                                 <!--  Accept Bid Button  -->

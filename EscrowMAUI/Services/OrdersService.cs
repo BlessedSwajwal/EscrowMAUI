@@ -83,4 +83,61 @@ public class OrdersService(HttpClient httpClient)
             return problem;
         }
     }
+
+    public async Task<OneOf<List<Order>, Problem>> GetBidsSelectedOrders()
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.GetAsync("Provider/GetSelectedBids");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var order = await response.Content.ReadFromJsonAsync<List<Order>>();
+            return order;
+        }
+        else
+        {
+            Problem problem = await response.Content.ReadFromJsonAsync<Problem>();
+            return problem;
+        }
+    }
+
+    public async Task<bool> AcceptBid(Guid OrderId, Guid BidId)
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.GetAsync($"Order/{OrderId}/AcceptBid?BidId={BidId}");
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<OneOf<Bid, Problem>> CreateBid(CreateBidDTO BidDTO)
+    {
+        Object payload = new
+        {
+            OrderId = BidDTO.OrderId,
+            ProposedAmount = BidDTO.ProposedAmountInPaisa,
+            BidDTO.Comment
+        };
+
+        var jsonPayload = JsonSerializer.Serialize(payload);
+        var stringContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.PostAsync("Provider/CreateBid", stringContent);
+        if (response.IsSuccessStatusCode)
+        {
+            var bid = await response.Content.ReadFromJsonAsync<Bid>();
+            return bid;
+        }
+        else
+        {
+            var problem = await response.Content.ReadFromJsonAsync<Problem>();
+            return problem;
+        }
+    }
 }

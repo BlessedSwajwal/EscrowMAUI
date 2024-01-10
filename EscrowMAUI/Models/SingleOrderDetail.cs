@@ -26,7 +26,7 @@ public class SingleOrderDetail
             _paymentUri = value;
         }
     }
-    public IReadOnlyList<Bid> Bids { get; set; }
+    public List<Bid> Bids { get; set; }
     public Guid AcceptedBid { get; set; }
 
     public int CostInRuppees => Cost / 100;

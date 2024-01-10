@@ -38,9 +38,13 @@ namespace EscrowMAUI
                 builder.Services.AddScopedWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
                 builder.Services.AddTransientPopup<CreateOrderPopup, OrdersViewModel>();
 
-                builder.Services.AddTransientWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
+                builder.Services.AddScopedWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
 
                 builder.Services.AddScopedWithShellRoute<CreatedOrdersPage, CreatedOrdersViewModel>(nameof(CreatedOrdersPage));
+
+                builder.Services.AddScopedWithShellRoute<ProviderHomePage, ProviderHomeViewModel>(nameof(ProviderHomePage));
+
+                builder.Services.AddTransientPopup<CreateBidPopup, OrderDetailViewModel>();
             }
 
             {

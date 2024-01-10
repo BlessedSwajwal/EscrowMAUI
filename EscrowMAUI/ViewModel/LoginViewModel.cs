@@ -55,7 +55,7 @@ public partial class LoginViewModel : ObservableObject
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+                        await Shell.Current.GoToAsync(nameof(ProviderHomePage));
                     }
 
                 },
@@ -87,7 +87,7 @@ public partial class LoginViewModel : ObservableObject
             }
             else
             {
-                await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+                await Shell.Current.GoToAsync(nameof(ProviderHomePage));
             }
 
         }

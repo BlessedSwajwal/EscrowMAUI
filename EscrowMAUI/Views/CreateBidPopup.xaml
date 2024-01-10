@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="EscrowMAUI.Views.CreateBidPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    x:DataType="vm:OrderDetailViewModel">
+    <Border
+        Padding="0,30"
+        BackgroundColor="White"
+        StrokeShape="RoundRectangle, 20"
+        StrokeThickness="2">
+        <VerticalStackLayout Padding="60,30">
+            <Label
+                HorizontalOptions="Center"
+                Text="Create a new bid."
+                VerticalOptions="Center" />
+
+            <!--  Bid Comment  -->
+            <VerticalStackLayout>
+                <Label FontSize="20" Text="Description: " />
+                <Border
+                    Stroke="Brown"
+                    StrokeShape="RoundRectangle, 20"
+                    StrokeThickness="1">
+                    <Editor
+                        Grid.Column="1"
+                        FontSize="20"
+                        HeightRequest="75"
+                        Text="{Binding BidDTO.Comment}"
+                        TextColor="Black"
+                        WidthRequest="200" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!--  Bid Amount  -->
+            <HorizontalStackLayout Spacing="10">
+                <Label FontSize="20" Text="Proposed Amount: " />
+                <Entry
+                    FontSize="20"
+                    Keyboard="Numeric"
+                    Text="{Binding BidDTO.ProposedAmountInRuppee}" />
+            </HorizontalStackLayout>
+
+            <Button
+                Clicked="Button_Clicked"
+                Command="{Binding BidFormSubmittedCommand}"
+                HorizontalOptions="Center"
+                Text="Submit" />
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

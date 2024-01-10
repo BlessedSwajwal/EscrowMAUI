@@ -32,7 +32,7 @@ public partial class MainPage : ContentPage
             }
             else
             {
-                await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+                await Shell.Current.GoToAsync(nameof(ProviderHomePage));
             }
 
         }

@@ -7,27 +7,26 @@ using System.Collections.ObjectModel;
 
 namespace EscrowMAUI.ViewModel;
 
-public partial class CreatedOrdersViewModel : ObservableObject
+public partial class ProviderHomeViewModel : ObservableObject
 {
     private readonly OrdersService _ordersService;
-
-    public CreatedOrdersViewModel(OrdersService ordersService)
+    public ProviderHomeViewModel(OrdersService ordersService)
     {
         _ordersService = ordersService;
         Orders = new();
+        OnAppearing();
     }
-
-    public ObservableCollection<Order> Orders { get; private set; }
     public bool ErrorOccured = false;
     public string ErrorDetail = "";
 
-    [RelayCommand]
+    public ObservableCollection<Order> Orders { get; private set; }
+
     public async Task OnAppearing()
     {
         ErrorOccured = false;
         ErrorDetail = string.Empty;
         Orders.Clear();
-        var result = await _ordersService.GetAllCreatedOrders();
+        var result = await _ordersService.GetBidsSelectedOrders();
         result.Match(
             orders =>
             {
@@ -45,7 +44,13 @@ public partial class CreatedOrdersViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void GoToOrderDetail(Guid id)
+    async Task GoToUserDetail()
+    {
+        await Shell.Current.GoToAsync(nameof(UserDetailPage));
+    }
+
+    [RelayCommand]
+    async Task GoToOrderDetail(Guid id)
     {
         var parameters = new Dictionary<string, object>()
         {
@@ -55,3 +60,4 @@ public partial class CreatedOrdersViewModel : ObservableObject
         await Shell.Current.GoToAsync(nameof(OrderDetailPage), true, parameters);
     }
 }
+

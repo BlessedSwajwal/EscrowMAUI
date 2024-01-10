@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EscrowMAUI.Models;
+using EscrowMAUI.Models.DTOs;
 using EscrowMAUI.Services;
 using System.ComponentModel;
 
@@ -13,12 +14,13 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     public OrderDetailViewModel(OrdersService ordersService)
     {
         _ordersService = ordersService;
+        BidDTO = new();
     }
 
     [ObservableProperty]
-    bool _errorOccured;
+    bool _errorOccured = false;
     [ObservableProperty]
-    string _errorDetail;
+    string _errorDetail = "";
 
     [ObservableProperty]
     Guid _orderId;
@@ -29,7 +31,14 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
 
     public bool IsPayable => Order is not null && Order.OrderStatus.Equals(Constants.Constants.PendingOrder);
 
-    public bool CanAcceptBid => (Order is not null && Order.OrderStatus.Equals("created")) ? true : false;
+    public bool CanAcceptBid => (Order is not null && Order.OrderStatus.Equals("created")
+        && TokenDecode.ReadJwtTokenContent(Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, "")).Id.Equals(Order.CreatorId)) ? true : false;
+
+    [ObservableProperty]
+    bool _canBid = false;
+
+    [ObservableProperty]
+    CreateBidDTO _bidDTO;
 
     [RelayCommand]
     public async Task OnAppearing()
@@ -39,6 +48,16 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
             orderResult =>
             {
                 Order = orderResult;
+
+                //Checking if the order can be bidded by current user.
+                //3 checks needed: If user type is provider, if order status is created and
+                //                  if user has already bidded or not.
+                if (Preferences.Default.Get<string>(Constants.Constants.UserType, "").Equals(Constants.Constants.ProviderType, StringComparison.OrdinalIgnoreCase)
+                    && Order.OrderStatus.Equals("created"))
+                {
+                    var user = TokenDecode.ReadJwtTokenContent(Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, ""));
+                    CanBid = Order.Bids.Where(bid => bid.BidderId == user.Id).Any() ? false : true;
+                }
                 return "";
             },
             error =>
@@ -68,5 +87,34 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
         {
             //TODO: Proper error handling
         }
+    }
+
+    [RelayCommand]
+    async Task AcceptBid(Guid BidId)
+    {
+        var result = await _ordersService.AcceptBid(Order.Id, BidId);
+        if (result)
+        {
+            OnAppearing();
+        }
+
+    }
+
+    [RelayCommand]
+    async Task BidFormSubmitted()
+    {
+        var result = await _ordersService.CreateBid(BidDTO);
+
+        result.Match(
+                bidResponse =>
+                {
+                    //ToDo: Send this bid back (query parameters)
+                    return "";
+                },
+                problemResponse =>
+                {
+                    return "";
+                }
+            );
     }
 }
