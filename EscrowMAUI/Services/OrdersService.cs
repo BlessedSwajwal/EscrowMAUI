@@ -1,5 +1,4 @@
-﻿using EscrowMAUI.Constants;
-using EscrowMAUI.Models;
+﻿using EscrowMAUI.Models;
 using EscrowMAUI.Models.DTOs;
 using OneOf;
 using System.Net.Http.Headers;
@@ -58,6 +57,24 @@ public class OrdersService(HttpClient httpClient)
         if (response.IsSuccessStatusCode)
         {
             var order = await response.Content.ReadFromJsonAsync<SingleOrderDetail>();
+            return order;
+        }
+        else
+        {
+            Problem problem = await response.Content.ReadFromJsonAsync<Problem>();
+            return problem;
+        }
+    }
+
+    public async Task<OneOf<List<Order>, Problem>> GetAllCreatedOrders()
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.GetAsync("Order");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var order = await response.Content.ReadFromJsonAsync<List<Order>>();
             return order;
         }
         else

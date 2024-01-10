@@ -1,67 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
-             x:Class="EscrowMAUI.Views.MainPage"
-             Shell.NavBarIsVisible="False"
-             Padding="10"
-             BackgroundColor="{StaticResource BackgroundColor}">
+<ContentPage
+    x:Class="EscrowMAUI.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Padding="10"
+    BackgroundColor="{StaticResource BackgroundColor}"
+    Shell.NavBarIsVisible="False">
 
-    <!--Main grid Layout-->
-    <Grid RowDefinitions="Auto, *, Auto"
-          RowSpacing="50">
+    <!--  Main grid Layout  -->
+    <Grid RowDefinitions="Auto, *, Auto" RowSpacing="50">
 
-            <!--Grid for icon and heading-->
-            <Grid ColumnDefinitions="Auto, *">
-                <!--Icon at the top-->
-                <Image Grid.Column="0"
-                       Source="bank.png"
-                       HeightRequest="50"
-                       WidthRequest="50"
-                       VerticalOptions="Center"/>
+        <!--  Grid for icon and heading  -->
+        <Grid ColumnDefinitions="Auto, *">
+            <!--  Icon at the top  -->
+            <Image
+                Grid.Column="0"
+                HeightRequest="50"
+                Source="bank.png"
+                VerticalOptions="Center"
+                WidthRequest="50" />
 
-                <VerticalStackLayout Grid.Column="1"
-                                     Spacing="-10">
-                    <Label 
-                           Text="Escrow"
-                           TextColor="{StaticResource TextBlack}"
-                           FontFamily="Cinnamon"
-                           FontSize="50"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="Center"
-                           VerticalOptions="Center"/>
-                    <Label Text="Online Escrow App"
-                           TextColor="{StaticResource TextBlack}"
-                           FontSize="20"
-                           HorizontalOptions="Center"/>     
-                </VerticalStackLayout>
-            </Grid>
+            <VerticalStackLayout Grid.Column="1" Spacing="-10">
+                <Label
+                    FontAttributes="Bold"
+                    FontFamily="Cinnamon"
+                    FontSize="50"
+                    HorizontalTextAlignment="Center"
+                    Text="Escrow"
+                    TextColor="{StaticResource TextBlack}"
+                    VerticalOptions="Center" />
+                <Label
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="Online Escrow App"
+                    TextColor="{StaticResource TextBlack}" />
+            </VerticalStackLayout>
+        </Grid>
 
-         <!--Vertical stack for the main image and quote-->
-        <VerticalStackLayout Grid.Row="1"
-                             HorizontalOptions="Center"
-                             Spacing="10">
-            <!--Main image-->
-            <Image Source="cashinhand.png" 
-                   HeightRequest="230"
-                   WidthRequest="230"/>
-            
-            <!--Quote jst below the main image-->
-            <Label Text="Investing in your dreams shouldn't feel like a gamble."
-                   TextColor="Black"
-                   FontSize="35"
-                   HorizontalTextAlignment="Center"/>
+        <!--  Vertical stack for the main image and quote  -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            Spacing="10">
+            <!--  Main image  -->
+            <Image
+                HeightRequest="230"
+                Source="cashinhand.png"
+                WidthRequest="230" />
+
+            <!--  Quote jst below the main image  -->
+            <Label
+                FontSize="35"
+                HorizontalTextAlignment="Center"
+                Text="Investing in your dreams shouldn't feel like a gamble."
+                TextColor="Black" />
         </VerticalStackLayout>
 
-        <Button Grid.Row="2"
-                CornerRadius="30"
-                HorizontalOptions="Center"
-                Padding="50, 20"
-                Margin="0,0,0,60"
-                Text="Get Started" 
-                FontSize="25"
-                Pressed="Button_Pressed"
-                Clicked="Button_Clicked"/>
+        <Button
+            Grid.Row="2"
+            Margin="0,0,0,60"
+            Padding="50,20"
+            Clicked="Button_Clicked"
+            CornerRadius="30"
+            FontSize="25"
+            HorizontalOptions="Center"
+            Pressed="Button_Pressed"
+            Text="Get Started" />
     </Grid>
 
 </ContentPage>

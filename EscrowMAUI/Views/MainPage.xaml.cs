@@ -1,4 +1,6 @@
-﻿namespace EscrowMAUI.Views;
+﻿using EscrowMAUI.ProviderViews;
+
+namespace EscrowMAUI.Views;
 
 public partial class MainPage : ContentPage
 {
@@ -16,6 +18,24 @@ public partial class MainPage : ContentPage
     {
         var btn = (Button)sender;
         btn.BackgroundColor = Colors.DimGray;
+    }
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (Preferences.Default.ContainsKey(Constants.Constants.TokenKeyConstant))
+        {
+            if (Preferences.Default.Get<string>(Constants.Constants.UserType, "").Equals(Constants.Constants.ConsumerType))
+            {
+                await Shell.Current.GoToAsync($"{nameof(Views.UserDetailPage)}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+            }
+
+        }
     }
 
 }

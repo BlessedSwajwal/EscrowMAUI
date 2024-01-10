@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using EscrowMAUI.ProviderViews;
 using EscrowMAUI.Services;
 using EscrowMAUI.ViewModel;
 using EscrowMAUI.Views;
@@ -38,6 +39,8 @@ namespace EscrowMAUI
                 builder.Services.AddTransientPopup<CreateOrderPopup, OrdersViewModel>();
 
                 builder.Services.AddTransientWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
+
+                builder.Services.AddScopedWithShellRoute<CreatedOrdersPage, CreatedOrdersViewModel>(nameof(CreatedOrdersPage));
             }
 
             {

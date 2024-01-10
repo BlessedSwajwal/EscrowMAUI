@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EscrowMAUI.ProviderViews.CreatedOrdersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:EscrowMAUI.Models"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="All Orders"
+    Padding="10"
+    x:DataType="vm:CreatedOrdersViewModel"
+    BackgroundColor="{StaticResource BackgroundColor}">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Bid on orders"
+                VerticalOptions="Center" />
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="model:Order">
+                        <Border
+                            Padding="20"
+                            Background="White"
+                            StrokeShape="RoundRectangle, 20"
+                            StrokeThickness="2">
+                            <Border.Resources>
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Border.Resources>
+                            <VerticalStackLayout>
+                                <!--  Order Name  -->
+                                <HorizontalStackLayout Spacing="20">
+                                    <Label Text="Name: " />
+                                    <Label Text="{Binding Name}" />
+                                </HorizontalStackLayout>
+
+                                <!--  Description  -->
+                                <HorizontalStackLayout>
+                                    <Label Text="Description: " />
+                                    <Label
+                                        LineBreakMode="WordWrap"
+                                        Text="{Binding Description}"
+                                        WidthRequest="200" />
+                                </HorizontalStackLayout>
+
+                                <!--  No of bids  -->
+                                <HorizontalStackLayout>
+                                    <Label Text="Bid Count: " />
+                                    <Label Text="{Binding BidsCount}" />
+                                </HorizontalStackLayout>
+
+                                <!--  Bid Button  -->
+                                <Button HorizontalOptions="End" Text="Bid" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

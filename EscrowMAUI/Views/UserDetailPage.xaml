@@ -66,6 +66,14 @@
                 VerticalOptions="Center" />
         </Grid>
 
+
         <Button Clicked="Button_Clicked" Text="Orders" />
+
+        <!--  Logout Button  -->
+        <Button
+            x:Name="LogoutButton"
+            BackgroundColor="Red"
+            Command="{Binding LogoutCommand}"
+            Text="Logout" />
     </VerticalStackLayout>
 </ContentPage>

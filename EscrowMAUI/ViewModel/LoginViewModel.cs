@@ -16,6 +16,7 @@ public partial class LoginViewModel : ObservableObject
     {
         User = new User();
         _authServices = authServices;
+        User.UserType = Constants.Constants.ConsumerType;
     }
 
     [ObservableProperty]
@@ -49,9 +50,14 @@ public partial class LoginViewModel : ObservableObject
                     IsProcessing = false;
                     //TODO: Redirect to home page
                     if (userResponse.UserType.Equals(Constants.Constants.ConsumerType, StringComparison.OrdinalIgnoreCase))
+                    {
                         await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+                    }
 
-                    await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
                 },
                 async errorResponse =>
                 {
@@ -75,8 +81,17 @@ public partial class LoginViewModel : ObservableObject
         IsProcessing = true;
         if (Preferences.Default.ContainsKey(Constants.Constants.TokenKeyConstant))
         {
-            await Shell.Current.GoToAsync($"{nameof(Views.UserDetailPage)}");
+            if (Preferences.Default.Get<string>(Constants.Constants.UserType, "").Equals(Constants.Constants.ConsumerType))
+            {
+                await Shell.Current.GoToAsync($"{nameof(Views.UserDetailPage)}");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
+            }
+
         }
         return;
     }
+
 }

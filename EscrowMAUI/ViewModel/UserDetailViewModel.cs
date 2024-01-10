@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using EscrowMAUI.Constants;
+using CommunityToolkit.Mvvm.Input;
 using EscrowMAUI.Models;
 using EscrowMAUI.Services;
 using EscrowMAUI.Views;
@@ -18,4 +18,11 @@ public partial class UserDetailViewModel : ObservableObject
 
     [ObservableProperty]
     User _user;
+
+    [RelayCommand]
+    async Task Logout()
+    {
+        Preferences.Default.Clear();
+        await Shell.Current.GoToAsync(nameof(LoginPage));
+    }
 }

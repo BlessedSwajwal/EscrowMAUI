@@ -9,5 +9,8 @@
             HorizontalOptions="Center"
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" />
+
+        <Button Text="Go To Created Orders"
+                Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>
