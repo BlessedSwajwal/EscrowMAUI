@@ -7,7 +7,7 @@ namespace EscrowMAUI.Services;
 
 public class AuthServices(HttpClient httpClient)
 {
-    public async Task<OneOf<User, Problem>> LoginAsync(string email, string password)
+    public async Task<OneOf<User, Problem>> LoginAsync(string email, string password, string userType = "Consumer")
     {
         var payload = new
         {
@@ -18,7 +18,7 @@ public class AuthServices(HttpClient httpClient)
         var jsonString = JsonSerializer.Serialize(payload);
         var postString = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
 
-        var result = await httpClient.PostAsync("Consumer/login", postString);
+        var result = await httpClient.PostAsync($"{userType}/login", postString);
 
         if (result.IsSuccessStatusCode)
         {

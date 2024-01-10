@@ -2,8 +2,8 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using EscrowMAUI.Constants;
 using EscrowMAUI.Models;
+using EscrowMAUI.ProviderViews;
 using EscrowMAUI.Services;
 using EscrowMAUI.Views;
 
@@ -33,13 +33,14 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty]
     bool _isProcessing = false;
 
+
     [RelayCommand]
     async Task LoginRequested()
     {
         await Task.CompletedTask;
 
         IsProcessing = true;
-        var result = await _authServices.LoginAsync(User.Email, User.Password);
+        var result = await _authServices.LoginAsync(User.Email, User.Password, User.UserType);
         await result.Match(
                 async userResponse =>
                 {
@@ -47,7 +48,10 @@ public partial class LoginViewModel : ObservableObject
                     Preferences.Default.Set(Constants.Constants.UserType, userResponse.UserType);
                     IsProcessing = false;
                     //TODO: Redirect to home page
-                    await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+                    if (userResponse.UserType.Equals(Constants.Constants.ConsumerType, StringComparison.OrdinalIgnoreCase))
+                        await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+
+                    await Shell.Current.GoToAsync($"//{nameof(ProviderHomePage)}");
                 },
                 async errorResponse =>
                 {
