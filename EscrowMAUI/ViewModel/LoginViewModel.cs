@@ -43,8 +43,8 @@ public partial class LoginViewModel : ObservableObject
         await result.Match(
                 async userResponse =>
                 {
-                    Preferences.Default.Set(EscrowConstants.TokenKeyConstant, userResponse.Token);
-                    Preferences.Default.Set(EscrowConstants.UserType, userResponse.UserType);
+                    Preferences.Default.Set(Constants.Constants.TokenKeyConstant, userResponse.Token);
+                    Preferences.Default.Set(Constants.Constants.UserType, userResponse.UserType);
                     IsProcessing = false;
                     //TODO: Redirect to home page
                     await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
@@ -69,9 +69,9 @@ public partial class LoginViewModel : ObservableObject
     async Task LoggedInCheck()
     {
         IsProcessing = true;
-        if (Preferences.Default.ContainsKey(EscrowConstants.TokenKeyConstant))
+        if (Preferences.Default.ContainsKey(Constants.Constants.TokenKeyConstant))
         {
-            await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+            await Shell.Current.GoToAsync($"{nameof(Views.UserDetailPage)}");
         }
         return;
     }

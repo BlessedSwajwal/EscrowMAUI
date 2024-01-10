@@ -10,10 +10,10 @@ public partial class UserDetailViewModel : ObservableObject
 {
     public UserDetailViewModel()
     {
-        var token = Preferences.Default.Get<string>(EscrowConstants.TokenKeyConstant, string.Empty);
+        var token = Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty);
         if (token == string.Empty) Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         User = TokenDecode.ReadJwtTokenContent(token);
-        User.UserType = Preferences.Default.Get<string>(EscrowConstants.UserType, string.Empty);
+        User.UserType = Preferences.Default.Get<string>(Constants.Constants.UserType, string.Empty);
     }
 
     [ObservableProperty]

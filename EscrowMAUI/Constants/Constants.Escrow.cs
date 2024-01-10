@@ -1,6 +1,6 @@
 ﻿namespace EscrowMAUI.Constants;
 
-internal static class EscrowConstants
+public static partial class Constants
 {
     public readonly static string TokenKeyConstant = "token";
     public readonly static string UserType = "UserType";

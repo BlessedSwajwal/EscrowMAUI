@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using EscrowMAUI.Models;
 using EscrowMAUI.Services;
 using System.ComponentModel;
@@ -12,7 +13,6 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     public OrderDetailViewModel(OrdersService ordersService)
     {
         _ordersService = ordersService;
-
     }
 
     [ObservableProperty]
@@ -24,10 +24,14 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     Guid _orderId;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsPayable))]
     SingleOrderDetail _order;
+
+    public bool IsPayable => Order is not null && Order.OrderStatus.Equals(Constants.Constants.PendingOrder);
 
     public bool CanAcceptBid => (Order is not null && Order.OrderStatus.Equals("created")) ? true : false;
 
+    [RelayCommand]
     public async Task OnAppearing()
     {
         var result = await _ordersService.GetOrderDetail(OrderId);
@@ -44,5 +48,25 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
                 return "";
             }
             );
+    }
+
+    [RelayCommand]
+    async Task NavigateBack()
+    {
+        await Shell.Current.GoToAsync("..");
+    }
+
+    [RelayCommand]
+    async Task PayButtonClicked()
+    {
+        try
+        {
+            Uri uri = new(Order.PaymentUri);
+            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+        catch (Exception ex)
+        {
+            //TODO: Proper error handling
+        }
     }
 }

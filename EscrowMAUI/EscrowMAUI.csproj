@@ -53,6 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\back.svg" />
 	  <None Remove="Resources\Images\bank.svg" />
 	  <None Remove="Resources\Images\cash.svg" />
 	  <None Remove="Resources\Images\cashinhand.svg" />

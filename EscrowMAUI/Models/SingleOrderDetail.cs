@@ -23,6 +23,7 @@ public class SingleOrderDetail
         set
         {
             if (value.StartsWith("Order Status")) _paymentUri = "";
+            _paymentUri = value;
         }
     }
     public IReadOnlyList<Bid> Bids { get; set; }

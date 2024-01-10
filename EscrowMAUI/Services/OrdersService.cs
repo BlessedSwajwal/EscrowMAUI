@@ -13,7 +13,7 @@ public class OrdersService(HttpClient httpClient)
 {
     public async Task<OneOf<List<Order>, Problem>> GetAllUserOrders()
     {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(EscrowConstants.TokenKeyConstant, string.Empty));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
 
         var response = await httpClient.GetAsync("Consumer/GetAllOrder");
 
@@ -31,7 +31,7 @@ public class OrdersService(HttpClient httpClient)
 
     public async Task<OneOf<SingleOrderDetail, Problem>> SubmitOrder(CreateOrderDTO createOrderDTO)
     {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(EscrowConstants.TokenKeyConstant, string.Empty));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
 
         var jsonPayload = JsonSerializer.Serialize(createOrderDTO);
         var stringContent = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
@@ -51,7 +51,7 @@ public class OrdersService(HttpClient httpClient)
 
     public async Task<OneOf<SingleOrderDetail, Problem>> GetOrderDetail(Guid orderId)
     {
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(EscrowConstants.TokenKeyConstant, string.Empty));
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
 
         var response = await httpClient.GetAsync($"Order/{orderId}");
 
