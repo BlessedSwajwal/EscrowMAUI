@@ -32,4 +32,5 @@ public partial class OrderDetailPage : ContentPage
     {
         ((Button)sender).BackgroundColor = Color.FromArgb("ac99ea");
     }
+
 }

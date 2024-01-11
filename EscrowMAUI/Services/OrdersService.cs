@@ -102,16 +102,18 @@ public class OrdersService(HttpClient httpClient)
         }
     }
 
-    public async Task<bool> AcceptBid(Guid OrderId, Guid BidId)
+    public async Task<string> AcceptBid(Guid OrderId, Guid BidId)
     {
+
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
 
         var response = await httpClient.GetAsync($"Order/{OrderId}/AcceptBid?BidId={BidId}");
         if (response.IsSuccessStatusCode)
         {
-            return true;
+            var paymentdetails = await response.Content.ReadFromJsonAsync<PaymentUriResponse>();
+            return paymentdetails.PaymentUri;
         }
-        return false;
+        return "";
     }
 
     public async Task<OneOf<Bid, Problem>> CreateBid(Guid OrderId, CreateBidDTO BidDTO)
@@ -141,3 +143,5 @@ public class OrdersService(HttpClient httpClient)
         }
     }
 }
+
+record PaymentUriResponse(string PaymentUri);

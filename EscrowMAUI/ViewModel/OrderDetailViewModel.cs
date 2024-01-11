@@ -93,8 +93,10 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     async Task AcceptBid(Guid BidId)
     {
         var result = await _ordersService.AcceptBid(Order.Id, BidId);
-        if (result)
+        if (!string.IsNullOrWhiteSpace(result))
         {
+            Uri uri = new(result);
+            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.External);
             OnAppearing();
         }
 
