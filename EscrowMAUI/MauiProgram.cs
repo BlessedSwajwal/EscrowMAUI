@@ -45,6 +45,9 @@ namespace EscrowMAUI
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
                 builder.Services.AddTransientWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
+
+                builder.Services.AddTransientWithShellRoute<ConsumerDetailPage, ConsumerDetailViewModel>(nameof(ConsumerDetailPage));
+
                 builder.Services.AddTransientWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
                 builder.Services.AddTransientPopup<CreateOrderPopup, OrdersViewModel>();
 

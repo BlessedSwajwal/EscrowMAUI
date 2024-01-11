@@ -51,7 +51,7 @@ public partial class LoginViewModel : ObservableObject
                     //TODO: Redirect to home page
                     if (userResponse.UserType.Equals(Constants.Constants.ConsumerType, StringComparison.OrdinalIgnoreCase))
                     {
-                        await Shell.Current.GoToAsync($"{nameof(UserDetailPage)}");
+                        await Shell.Current.GoToAsync($"{nameof(ConsumerDetailPage)}");
                     }
                     else
                     {
@@ -75,15 +75,14 @@ public partial class LoginViewModel : ObservableObject
         await Task.CompletedTask;
     }
 
-    [RelayCommand]
-    async Task LoggedInCheck()
+    public async Task LoggedInCheck()
     {
         IsProcessing = true;
         if (Preferences.Default.ContainsKey(Constants.Constants.TokenKeyConstant))
         {
             if (Preferences.Default.Get<string>(Constants.Constants.UserType, "").Equals(Constants.Constants.ConsumerType))
             {
-                await Shell.Current.GoToAsync($"{nameof(Views.UserDetailPage)}");
+                await Shell.Current.GoToAsync($"{nameof(ConsumerDetailPage)}");
             }
             else
             {

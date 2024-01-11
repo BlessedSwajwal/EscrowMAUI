@@ -1,5 +1,7 @@
 ﻿using EscrowMAUI.Models;
+using EscrowMAUI.Models.DTOs;
 using OneOf;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -28,6 +30,24 @@ public class AuthServices(HttpClient httpClient)
         else
         {
             Problem problem = await result.Content.ReadFromJsonAsync<Problem>();
+            return problem;
+        }
+    }
+
+    public async Task<OneOf<ConsumerDetailResponse, Problem>> GetConsumerDetail()
+    {
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.GetAsync("Consumer/details");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var consumerDetail = await response.Content.ReadFromJsonAsync<ConsumerDetailResponse>();
+            return consumerDetail;
+        }
+        else
+        {
+            Problem problem = await response.Content.ReadFromJsonAsync<Problem>();
             return problem;
         }
     }

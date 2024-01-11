@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="EscrowMAUI.Views.ConsumerDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
+    Title="Consumer Detail"
+    Padding="5"
+    x:DataType="vm:ConsumerDetailViewModel">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15">
+            <Grid RowDefinitions="Auto, *" RowSpacing="40">
+                <Border
+                    Grid.Row="0"
+                    Margin="20,5"
+                    Padding="20"
+                    VerticalOptions="Start">
+                    <VerticalStackLayout Spacing="5">
+                        <Image
+                            HeightRequest="150"
+                            Source="avatar.png"
+                            WidthRequest="150" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            Text="{Binding FullName}" />
+
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="Total Orders: "
+                                TextColor="Green" />
+
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Text="{Binding ConsumerDetail.TotalOrderCount}"
+                                TextColor="Green" />
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!--  Detail of the user  -->
+                <Border
+                    Grid.Row="1"
+                    Margin="35,0,35,20"
+                    Padding="20"
+                    Stroke="Brown"
+                    StrokeThickness="2"
+                    VerticalOptions="Start">
+                    <VerticalStackLayout Spacing="5">
+
+                        <!--  Name  -->
+                        <Grid ColumnDefinitions="80, *">
+                            <Label FontSize="16" Text="Name: " />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                Text="{Binding FullName}" />
+                        </Grid>
+
+                        <!--  Email  -->
+                        <Grid ColumnDefinitions="80, *">
+                            <Label FontSize="16" Text="Email: " />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                Text="{Binding ConsumerDetail.Email}" />
+                        </Grid>
+
+                        <!--  Mobile No  -->
+                        <Grid ColumnDefinitions="80, *">
+                            <Label FontSize="16" Text="Mobile: " />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                Text="{Binding ConsumerDetail.MobileNo}" />
+                        </Grid>
+
+                        <!--  UserType  -->
+                        <Grid ColumnDefinitions="80, *">
+                            <Label FontSize="16" Text="User Type: " />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                Text="{Binding ConsumerDetail.UserType}"
+                                TextColor="Red" />
+                        </Grid>
+
+
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+            <Button
+                Margin="70,0"
+                BorderColor="RosyBrown"
+                CornerRadius="22"
+                Text="Change Password" />
+            <Button
+                Margin="70,0"
+                BackgroundColor="Red"
+                Clicked="Button_Clicked"
+                CornerRadius="22"
+                Text="Logout" />
+
+            <Button
+                x:Name="NavigateTemp"
+                Margin="70,0"
+                BorderColor="RosyBrown"
+                CornerRadius="22"
+                Text="Orders Page"
+                Clicked="NavigateTemp_Clicked"
+                VerticalOptions="End" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

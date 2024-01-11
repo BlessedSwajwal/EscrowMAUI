@@ -18,7 +18,7 @@ public partial class LoginPage : ContentPage
         base.OnAppearing();
         EmailEntry.Text = "";
         PasswordEntry.Text = "";
-        await _loginViewModel.LoggedInCheckCommand.ExecuteAsync(null);
+        await _loginViewModel.LoggedInCheck();
     }
 
     private void UserTypeButton_Clicked(object sender, EventArgs e)

@@ -8,8 +8,7 @@
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="All Orders"
     Padding="10"
-    x:DataType="vm:OrdersViewModel"
-    Background="{StaticResource BackgroundColor}">
+    x:DataType="vm:OrdersViewModel">
     <ScrollView VerticalOptions="Start">
         <StackLayout>
             <!--  Lable + New Order Button  -->
@@ -23,8 +22,6 @@
 
                 <ImageButton
                     Grid.Column="1"
-                    BorderColor="Brown"
-                    BorderWidth="1"
                     Command="{Binding AppearingCommand}"
                     HeightRequest="40"
                     HorizontalOptions="End"
@@ -35,7 +32,6 @@
                     Grid.Column="2"
                     Margin="0,0,10,0"
                     Padding="20,0"
-                    BackgroundColor="{StaticResource PrimaryDark}"
                     FontAttributes="Bold"
                     HorizontalOptions="End"
                     Pressed="Button_Pressed"
@@ -51,42 +47,27 @@
                     <DataTemplate x:DataType="model:Order">
                         <Border
                             Padding="10"
-                            BackgroundColor="{StaticResource MidnightBlue}"
                             FlexLayout.Basis="100%"
                             StrokeShape="RoundRectangle 20"
                             StrokeThickness="2">
 
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
-                                <VerticalStackLayout.Resources>
-                                    <Style TargetType="Label">
-                                        <Setter Property="TextColor" Value="White" />
-                                        <Setter Property="FontSize" Value="15" />
-                                        <Setter Property="LineHeight" Value="1.2" />
-                                    </Style>
-                                </VerticalStackLayout.Resources>
                                 <Label
                                     FontSize="25"
                                     HorizontalOptions="Center"
-                                    Text="{Binding Name}"
-                                    TextColor="White" />
+                                    Text="{Binding Name}" />
 
                                 <!--  Description  -->
                                 <VerticalStackLayout>
-                                    <Label Text="Description: " TextColor="White" />
+                                    <Label Text="Description: " />
                                     <BoxView BackgroundColor="Transparent" HeightRequest="10" />
-                                    <Label
-                                        Padding="40,0,0,0"
-                                        Text="{Binding Description}"
-                                        TextColor="White" />
+                                    <Label Padding="40,0,0,0" Text="{Binding Description}" />
 
                                 </VerticalStackLayout>
 
                                 <!--  Order Status  -->
                                 <HorizontalStackLayout>
-                                    <Label
-                                        Margin="0,0,10,0"
-                                        Text="Order Status: "
-                                        TextColor="White" />
+                                    <Label Margin="0,0,10,0" Text="Order Status: " />
                                     <Label Text="{Binding OrderStatus}" />
 
                                 </HorizontalStackLayout>
