@@ -7,7 +7,6 @@
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="Login"
     x:DataType="vm:LoginViewModel"
-    BackgroundColor="{StaticResource BackgroundColor}"
     Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
@@ -17,32 +16,23 @@
         <Style x:Key="ValidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Green" />
         </Style>
-        <Style TargetType="Entry">
-            <Setter Property="PlaceholderColor" Value="Gray" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="DarkSalmon" />
-        </Style>
-        <Style x:Name="EntryBorder" TargetType="Border">
-            <Setter Property="Padding" Value="7" />
-            <Setter Property="StrokeShape" Value="RoundRectangle, 20" />
-        </Style>
     </ContentPage.Resources>
 
     <!--  Main border #F9F7C9  -->
     <Border
         Padding="30"
-        BackgroundColor="White"
         HeightRequest="600"
         HorizontalOptions="Center"
-        Stroke="Brown"
+        Stroke="Red"
         StrokeShape="RoundRectangle 20"
         StrokeThickness="2">
         <VerticalStackLayout Spacing="30">
             <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
-
                 <!--  Styles for the button stored in local resource dictionary of the grid  -->
                 <Grid.Resources>
                     <Style TargetType="Button">
+                        <Setter Property="BorderColor" Value="Brown" />
+                        <Setter Property="BorderWidth" Value="2" />
                         <Setter Property="CornerRadius" Value="30" />
                         <Setter Property="BackgroundColor" Value="AntiqueWhite" />
                         <Setter Property="Padding" Value="20" />
@@ -57,25 +47,18 @@
                     x:Name="ConsumerButton"
                     Grid.Column="0"
                     BackgroundColor="Blue"
-                    BorderColor="Azure"
-                    BorderWidth="2"
                     Clicked="UserTypeButton_Clicked"
                     Text="CONSUMER" />
                 <Button
                     x:Name="ProviderButton"
                     Grid.Column="1"
-                    BorderColor="Azure"
-                    BorderWidth="2"
                     Clicked="UserTypeButton_Clicked"
                     Text="PROVIDER" />
             </Grid>
-            <Label
-                FontSize="20"
-                Text="Login"
-                TextColor="Black" />
+            <Label FontSize="20" Text="Login" />
             <VerticalStackLayout>
                 <Label Text="Email: " />
-                <Border>
+                <Border Padding="5">
                     <Entry
                         x:Name="EmailEntry"
                         Placeholder="Email"
@@ -95,7 +78,7 @@
             </VerticalStackLayout>
             <VerticalStackLayout>
                 <Label Text="Password: " />
-                <Border>
+                <Border Padding="5">
                     <Entry
                         x:Name="PasswordEntry"
                         Margin="-2"

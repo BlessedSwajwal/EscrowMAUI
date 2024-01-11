@@ -8,7 +8,6 @@
     Title="Sign Up"
     Padding="10"
     x:DataType="vm:LoginViewModel"
-    BackgroundColor="{StaticResource BackgroundColor}"
     Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -17,17 +16,13 @@
         <Style x:Key="ValidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Green" />
         </Style>
-        <Style TargetType="Entry">
-            <Setter Property="PlaceholderColor" Value="Gray" />
-            <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="DarkSalmon" />
-        </Style>
-        <Style x:Name="EntryBorder" TargetType="Border">
-            <Setter Property="Padding" Value="7" />
-            <Setter Property="StrokeShape" Value="RoundRectangle, 20" />
-        </Style>
+
     </ContentPage.Resources>
-    <VerticalStackLayout Spacing="40">
+    <VerticalStackLayout
+        HorizontalOptions="Center"
+        Spacing="40"
+        VerticalOptions="Center">
+
         <Label
             FontSize="25"
             HorizontalOptions="Center"
@@ -35,205 +30,199 @@
             VerticalOptions="Center" />
 
         <VerticalStackLayout HorizontalOptions="Center">
-            <Border BackgroundColor="White">
-                <Border
-                    Padding="30"
-                    BackgroundColor="White"
-                    HorizontalOptions="Center"
-                    Stroke="Brown"
-                    StrokeShape="RoundRectangle 20"
-                    StrokeThickness="2">
-                    <VerticalStackLayout Spacing="30">
-                        <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+            <Border
+                Padding="30"
+                HorizontalOptions="Center"
+                Stroke="Brown"
+                StrokeShape="RoundRectangle 20"
+                StrokeThickness="2">
+                <VerticalStackLayout Spacing="30">
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
 
-                            <!--  Styles for the button stored in local resource dictionary of the grid  -->
-                            <Grid.Resources>
-                                <Style TargetType="Button">
-                                    <Setter Property="CornerRadius" Value="30" />
-                                    <Setter Property="BackgroundColor" Value="AntiqueWhite" />
-                                    <Setter Property="Padding" Value="20" />
-                                    <Setter Property="FontAttributes" Value="Bold" />
-                                    <Setter Property="FontSize" Value="18" />
-                                    <Setter Property="TextColor" Value="Magenta" />
-                                </Style>
-                            </Grid.Resources>
+                        <!--  Styles for the button stored in local resource dictionary of the grid  -->
+                        <Grid.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="CornerRadius" Value="30" />
+                                <Setter Property="BackgroundColor" Value="AntiqueWhite" />
+                                <Setter Property="Padding" Value="20" />
+                                <Setter Property="FontAttributes" Value="Bold" />
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="TextColor" Value="Magenta" />
+                            </Style>
+                        </Grid.Resources>
 
-                            <!--  Two buttons for two type of users  -->
-                            <Button
-                                x:Name="ConsumerButton"
-                                Grid.Column="0"
-                                BackgroundColor="Blue"
-                                BorderColor="Azure"
-                                BorderWidth="2"
-                                Clicked="UserTypeButton_Clicked"
-                                Text="CONSUMER" />
-                            <Button
-                                x:Name="ProviderButton"
-                                Grid.Column="1"
-                                BorderColor="Azure"
-                                BorderWidth="2"
-                                Clicked="UserTypeButton_Clicked"
-                                Text="PROVIDER" />
+                        <!--  Two buttons for two type of users  -->
+                        <Button
+                            x:Name="ConsumerButton"
+                            Grid.Column="0"
+                            BackgroundColor="Blue"
+                            BorderColor="Azure"
+                            BorderWidth="2"
+                            Clicked="UserTypeButton_Clicked"
+                            Text="CONSUMER" />
+                        <Button
+                            x:Name="ProviderButton"
+                            Grid.Column="1"
+                            BorderColor="Azure"
+                            BorderWidth="2"
+                            Clicked="UserTypeButton_Clicked"
+                            Text="PROVIDER" />
+                    </Grid>
+                    <Label FontSize="20" Text="Register" />
+                    <VerticalStackLayout Spacing="10">
+                        <Grid ColumnDefinitions="*, *" ColumnSpacing="5">
+                            <VerticalStackLayout>
+                                <Border Padding="5">
+                                    <Entry
+                                        x:Name="FirstNameEntry"
+                                        Placeholder="FirstName"
+                                        Text="{Binding User.FirstName, Mode=OneWayToSource}"
+                                        TextChanged="Form_TextChanged"
+                                        WidthRequest="110">
+                                        <Entry.Behaviors>
+                                            <toolkit:TextValidationBehavior
+                                                x:Name="FirstNameValidationBehavior"
+                                                Flags="ValidateOnValueChanged"
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                MinimumLength="1"
+                                                ValidStyle="{StaticResource ValidEntryStyle}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </Border>
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding Source={Reference Name=FirstNameValidationBehavior}, Path=IsNotValid}"
+                                    Text="Can not be empty"
+                                    TextColor="Red" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1">
+                                <Border Padding="5">
+                                    <Entry
+                                        x:Name="LastNameEntry"
+                                        Placeholder="LastName"
+                                        Text="{Binding User.LastName, Mode=OneWayToSource}"
+                                        TextChanged="Form_TextChanged"
+                                        WidthRequest="110">
+                                        <Entry.Behaviors>
+                                            <toolkit:TextValidationBehavior
+                                                x:Name="LastNameValidationBehavior"
+                                                Flags="ValidateOnValueChanged"
+                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                MinimumLength="1"
+                                                ValidStyle="{StaticResource ValidEntryStyle}" />
+                                        </Entry.Behaviors>
+                                    </Entry>
+                                </Border>
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding Source={Reference Name=LastNameValidationBehavior}, Path=IsNotValid}"
+                                    Text="Can not be empty"
+                                    TextColor="Red" />
+                            </VerticalStackLayout>
                         </Grid>
-                        <Label
-                            FontSize="20"
-                            Text="Register"
-                            TextColor="Black" />
-                        <VerticalStackLayout Spacing="10">
-                            <Grid ColumnDefinitions="*, *" ColumnSpacing="5">
-                                <VerticalStackLayout>
-                                    <Border>
-                                        <Entry
-                                            x:Name="FirstNameEntry"
-                                            Placeholder="FirstName"
-                                            Text="{Binding User.FirstName, Mode=OneWayToSource}"
-                                            TextChanged="Form_TextChanged"
-                                            WidthRequest="110">
-                                            <Entry.Behaviors>
-                                                <toolkit:TextValidationBehavior
-                                                    x:Name="FirstNameValidationBehavior"
-                                                    Flags="ValidateOnValueChanged"
-                                                    InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                                    MinimumLength="1"
-                                                    ValidStyle="{StaticResource ValidEntryStyle}" />
-                                            </Entry.Behaviors>
-                                        </Entry>
-                                    </Border>
-                                    <Label
-                                        FontSize="12"
-                                        HorizontalOptions="Center"
-                                        IsVisible="{Binding Source={Reference Name=FirstNameValidationBehavior}, Path=IsNotValid}"
-                                        Text="Can not be empty"
-                                        TextColor="Red" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Grid.Column="1">
-                                    <Border>
-                                        <Entry
-                                            x:Name="LastNameEntry"
-                                            Placeholder="LastName"
-                                            Text="{Binding User.LastName, Mode=OneWayToSource}"
-                                            TextChanged="Form_TextChanged"
-                                            WidthRequest="110">
-                                            <Entry.Behaviors>
-                                                <toolkit:TextValidationBehavior
-                                                    x:Name="LastNameValidationBehavior"
-                                                    Flags="ValidateOnValueChanged"
-                                                    InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                                    MinimumLength="1"
-                                                    ValidStyle="{StaticResource ValidEntryStyle}" />
-                                            </Entry.Behaviors>
-                                        </Entry>
-                                    </Border>
-                                    <Label
-                                        FontSize="12"
-                                        HorizontalOptions="Center"
-                                        IsVisible="{Binding Source={Reference Name=LastNameValidationBehavior}, Path=IsNotValid}"
-                                        Text="Can not be empty"
-                                        TextColor="Red" />
-                                </VerticalStackLayout>
-                            </Grid>
 
-                            <VerticalStackLayout>
-                                <Border>
-                                    <Entry
-                                        x:Name="EmailEntry"
-                                        Placeholder="Email"
-                                        Text="{Binding User.Email, Mode=OneWayToSource}"
-                                        TextChanged="Form_TextChanged"
-                                        WidthRequest="250">
-                                        <Entry.Behaviors>
-                                            <toolkit:TextValidationBehavior
-                                                x:Name="EmailValidationBehavior"
-                                                Flags="ValidateOnValueChanged"
-                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                                RegexPattern="{Binding EmailRegex}"
-                                                ValidStyle="{StaticResource ValidEntryStyle}" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </Border>
-                                <Label
-                                    FontSize="12"
-                                    HorizontalOptions="Center"
-                                    IsVisible="{Binding Source={Reference Name=EmailValidationBehavior}, Path=IsNotValid}"
-                                    Text="Must be an email."
-                                    TextColor="Red" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout>
-                                <Border>
-                                    <Entry
-                                        x:Name="PhoneEntry"
-                                        Placeholder="Phone"
-                                        Text="{Binding User.Phone, Mode=OneWayToSource}"
-                                        TextChanged="Form_TextChanged"
-                                        WidthRequest="250">
-                                        <Entry.Behaviors>
-                                            <toolkit:TextValidationBehavior
-                                                x:Name="PhoneValidationBehavior"
-                                                Flags="ValidateOnValueChanged"
-                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                                MinimumLength="10"
-                                                ValidStyle="{StaticResource ValidEntryStyle}" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </Border>
-                                <Label
-                                    FontSize="12"
-                                    HorizontalOptions="Center"
-                                    IsVisible="{Binding Source={Reference Name=PhoneValidationBehavior}, Path=IsNotValid}"
-                                    Text="Must be 10 digits."
-                                    TextColor="Red" />
-                            </VerticalStackLayout>
-                            <VerticalStackLayout>
-                                <Border>
-                                    <Entry
-                                        x:Name="PasswordEntry"
-                                        Margin="-2"
-                                        IsPassword="True"
-                                        Placeholder="Password"
-                                        Text="{Binding User.Password, Mode=OneWayToSource}"
-                                        TextChanged="Form_TextChanged"
-                                        WidthRequest="250">
-                                        <Entry.Behaviors>
-                                            <toolkit:TextValidationBehavior
-                                                x:Name="PasswordValidationBehavior"
-                                                Flags="ValidateOnValueChanged"
-                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
-                                                RegexPattern="{Binding PasswordRegex}"
-                                                ValidStyle="{StaticResource ValidEntryStyle}" />
-                                        </Entry.Behaviors>
-                                    </Entry>
-                                </Border>
-                                <Label
-                                    FontSize="12"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    IsVisible="{Binding Source={Reference Name=PasswordValidationBehavior}, Path=IsNotValid}"
-                                    Text="8 characters,minimum one uppercase letter, one lowercase letter, one number and one special character."
-                                    TextColor="Red"
-                                    WidthRequest="200" />
-                            </VerticalStackLayout>
-                            <Button
-                                Padding="0,20"
-                                Command="{Binding RegisterRequestedCommand}"
-                                CornerRadius="20"
-                                IsEnabled="{Binding IsFormValid}"
-                                Text="Register" />
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                                <Label Text="Already have an account?" />
-                                <Label
-                                    Text="Login"
-                                    TextColor="Orange"
-                                    TextDecorations="Underline">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                                    </Label.GestureRecognizers>
-                                </Label>
-                            </HorizontalStackLayout>
+                        <VerticalStackLayout>
+                            <Border Padding="5">
+                                <Entry
+                                    x:Name="EmailEntry"
+                                    Placeholder="Email"
+                                    Text="{Binding User.Email, Mode=OneWayToSource}"
+                                    TextChanged="Form_TextChanged"
+                                    WidthRequest="250">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            x:Name="EmailValidationBehavior"
+                                            Flags="ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            RegexPattern="{Binding EmailRegex}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Border>
+                            <Label
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Source={Reference Name=EmailValidationBehavior}, Path=IsNotValid}"
+                                Text="Must be an email."
+                                TextColor="Red" />
                         </VerticalStackLayout>
-
-
+                        <VerticalStackLayout>
+                            <Border Padding="5">
+                                <Entry
+                                    x:Name="PhoneEntry"
+                                    Placeholder="Phone"
+                                    Text="{Binding User.Phone, Mode=OneWayToSource}"
+                                    TextChanged="Form_TextChanged"
+                                    WidthRequest="250">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            x:Name="PhoneValidationBehavior"
+                                            Flags="ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MinimumLength="10"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Border>
+                            <Label
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Source={Reference Name=PhoneValidationBehavior}, Path=IsNotValid}"
+                                Text="Must be 10 digits."
+                                TextColor="Red" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout>
+                            <Border Padding="5">
+                                <Entry
+                                    x:Name="PasswordEntry"
+                                    Margin="-2"
+                                    IsPassword="True"
+                                    Placeholder="Password"
+                                    Text="{Binding User.Password, Mode=OneWayToSource}"
+                                    TextChanged="Form_TextChanged"
+                                    WidthRequest="250">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            x:Name="PasswordValidationBehavior"
+                                            Flags="ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            RegexPattern="{Binding PasswordRegex}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                            </Border>
+                            <Label
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                IsVisible="{Binding Source={Reference Name=PasswordValidationBehavior}, Path=IsNotValid}"
+                                Text="8 characters,minimum one uppercase letter, one lowercase letter, one number and one special character."
+                                TextColor="Red"
+                                WidthRequest="200" />
+                        </VerticalStackLayout>
+                        <Button
+                            Padding="0,20"
+                            Command="{Binding RegisterRequestedCommand}"
+                            CornerRadius="20"
+                            IsEnabled="{Binding IsFormValid}"
+                            Text="Register" />
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                            <Label Text="Already have an account?" />
+                            <Label
+                                Text="Login"
+                                TextColor="Orange"
+                                TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
-                </Border>
+
+
+                </VerticalStackLayout>
             </Border>
         </VerticalStackLayout>
     </VerticalStackLayout>

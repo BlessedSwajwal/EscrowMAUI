@@ -6,9 +6,7 @@
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="Profile"
     Padding="25,0"
-    x:DataType="vm:UserDetailViewModel"
-    BackgroundColor="{StaticResource BackgroundColor}"
-    Shell.TitleColor="Blue">
+    x:DataType="vm:UserDetailViewModel">
 
     <VerticalStackLayout Spacing="10">
         <BoxView
@@ -19,7 +17,6 @@
         <Label
             FontSize="30"
             Text="Profile Details:"
-            TextColor="Black"
             VerticalOptions="Center" />
 
         <!--  Name of the user  -->
