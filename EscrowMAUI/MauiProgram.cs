@@ -32,6 +32,16 @@ namespace EscrowMAUI
             }
 
             {
+                //For transparent entry color in android. Removes the underline that appeats for Entry.
+                Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+                {
+#if ANDROID
+                    handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+                });
+            }
+
+            {
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
                 builder.Services.AddTransientWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
