@@ -34,22 +34,23 @@ namespace EscrowMAUI
             {
                 builder.Services.AddSingletonWithShellRoute<LoginPage, LoginViewModel>(nameof(LoginPage));
                 builder.Services.AddSingletonWithShellRoute<SignUpPage, LoginViewModel>(nameof(SignUpPage));
-                builder.Services.AddScopedWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
-                builder.Services.AddScopedWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
+                builder.Services.AddTransientWithShellRoute<UserDetailPage, UserDetailViewModel>(nameof(UserDetailPage));
+                builder.Services.AddTransientWithShellRoute<OrdersPage, OrdersViewModel>(nameof(OrdersPage));
                 builder.Services.AddTransientPopup<CreateOrderPopup, OrdersViewModel>();
 
-                builder.Services.AddScopedWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
+                builder.Services.AddTransientWithShellRoute<OrderDetailPage, OrderDetailViewModel>(nameof(OrderDetailPage));
 
                 builder.Services.AddScopedWithShellRoute<CreatedOrdersPage, CreatedOrdersViewModel>(nameof(CreatedOrdersPage));
 
-                builder.Services.AddScopedWithShellRoute<ProviderHomePage, ProviderHomeViewModel>(nameof(ProviderHomePage));
+                builder.Services.AddTransientWithShellRoute<ProviderHomePage, ProviderHomeViewModel>(nameof(ProviderHomePage));
 
-                builder.Services.AddTransientPopup<CreateBidPopup, OrderDetailViewModel>();
+                builder.Services.AddSingletonWithShellRoute<CreateBidPage, CreateBidViewModel>(nameof(CreateBidPage));
             }
 
             {
                 builder.Services.AddScoped<AuthServices>();
                 builder.Services.AddScoped<OrdersService>();
+
             }
 
             {

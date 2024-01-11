@@ -114,11 +114,11 @@ public class OrdersService(HttpClient httpClient)
         return false;
     }
 
-    public async Task<OneOf<Bid, Problem>> CreateBid(CreateBidDTO BidDTO)
+    public async Task<OneOf<Bid, Problem>> CreateBid(Guid OrderId, CreateBidDTO BidDTO)
     {
         Object payload = new
         {
-            OrderId = BidDTO.OrderId,
+            OrderId,
             ProposedAmount = BidDTO.ProposedAmountInPaisa,
             BidDTO.Comment
         };

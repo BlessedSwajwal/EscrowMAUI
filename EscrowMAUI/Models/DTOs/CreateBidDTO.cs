@@ -5,7 +5,6 @@ namespace EscrowMAUI.Models.DTOs;
 
 public partial class CreateBidDTO : ObservableObject
 {
-    public Guid OrderId { get; set; }
 
     [ObservableProperty]
     int _proposedAmountInRuppee;

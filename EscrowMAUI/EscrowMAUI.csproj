@@ -81,7 +81,7 @@
 	  <MauiXaml Update="ProviderViews\ProviderHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\CreateBidPopup.xaml">
+	  <MauiXaml Update="Views\CreateBidPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\CreateOrderPopup.xaml">

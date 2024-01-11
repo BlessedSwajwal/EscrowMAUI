@@ -56,7 +56,7 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
                     && Order.OrderStatus.Equals("created"))
                 {
                     var user = TokenDecode.ReadJwtTokenContent(Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, ""));
-                    CanBid = Order.Bids.Where(bid => bid.BidderId == user.Id).Any() ? false : true;
+                    CanBid = Order.Bids.Any(bid => bid.BidderId == user.Id) ? false : true;
                 }
                 return "";
             },
@@ -100,21 +100,4 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
 
     }
 
-    [RelayCommand]
-    async Task BidFormSubmitted()
-    {
-        var result = await _ordersService.CreateBid(BidDTO);
-
-        result.Match(
-                bidResponse =>
-                {
-                    //ToDo: Send this bid back (query parameters)
-                    return "";
-                },
-                problemResponse =>
-                {
-                    return "";
-                }
-            );
-    }
 }

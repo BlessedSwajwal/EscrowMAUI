@@ -1,4 +1,3 @@
-using CommunityToolkit.Maui.Core;
 using EscrowMAUI.ViewModel;
 
 namespace EscrowMAUI.Views;
@@ -7,13 +6,11 @@ namespace EscrowMAUI.Views;
 public partial class OrderDetailPage : ContentPage
 {
     private readonly OrderDetailViewModel viewModel;
-    private readonly IPopupService _popupService;
-    public OrderDetailPage(OrderDetailViewModel viewModel, IPopupService popupService)
+    public OrderDetailPage(OrderDetailViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
         this.viewModel = viewModel;
-        _popupService = popupService;
     }
     protected async override void OnAppearing()
     {
@@ -24,10 +21,11 @@ public partial class OrderDetailPage : ContentPage
     private async void Button_Pressed(object sender, EventArgs e)
     {
         ((Button)sender).BackgroundColor = Colors.Gray;
-        _popupService.ShowPopup<OrderDetailViewModel>(onPresenting: vm =>
+        var parameters = new Dictionary<string, object>
         {
-            vm.BidDTO.OrderId = Guid.Parse(OrderIdLabel.Text);
-        });
+            [nameof(CreateBidViewModel.OrderId)] = Guid.Parse(OrderIdLabel.Text)
+        };
+        await Shell.Current.GoToAsync(nameof(CreateBidPage), true, parameters);
     }
 
     private void Button_Released(object sender, EventArgs e)
