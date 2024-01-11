@@ -53,12 +53,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\add.svg" />
 	  <None Remove="Resources\Images\avatar.svg" />
 	  <None Remove="Resources\Images\back.svg" />
 	  <None Remove="Resources\Images\bank.svg" />
 	  <None Remove="Resources\Images\cash.svg" />
 	  <None Remove="Resources\Images\cashinhand.svg" />
+	  <None Remove="Resources\Images\filledadd.svg" />
 	  <None Remove="Resources\Images\home.svg" />
+	  <None Remove="Resources\Images\order.svg" />
 	  <None Remove="Resources\Images\refresh.svg" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
 	</ItemGroup>
@@ -106,6 +109,15 @@
 	  <MauiXaml Update="Views\UserDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+	  <PackageReference Include="DevExpress.Maui.CollectionView">
+	    <Version>23.2.3</Version>
+	  </PackageReference>
+	  <PackageReference Include="DevExpress.Maui.Controls">
+	    <Version>23.2.3</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using DevExpress.Maui;
 using EscrowMAUI.ProviderViews;
 using EscrowMAUI.Services;
 using EscrowMAUI.ViewModel;
@@ -22,7 +23,8 @@ namespace EscrowMAUI
                     fonts.AddFont("ShortBaby,ttf", "ShortBaby");
                     fonts.AddFont("Cinnamon.ttf", "Cinnamon");
                 })
-                .UseMauiCommunityToolkit();
+                .UseMauiCommunityToolkit()
+                .UseDevExpress();
 
             {
                 builder.Services.AddSingleton(sp => new HttpClient

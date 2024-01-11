@@ -16,9 +16,11 @@ public partial class OrdersViewModel : ObservableObject
     {
         _ordersService = ordersService;
         Orders = new();
-        OnAppearing();
         CreateOrderDTO = new();
     }
+
+    [ObservableProperty]
+    bool _ordersRefreshing = false;
 
     [ObservableProperty]
     bool errorOccured = false;
@@ -31,8 +33,9 @@ public partial class OrdersViewModel : ObservableObject
     public string ErrorDetail { get; private set; } = "";
 
     [RelayCommand]
-    async Task OnAppearing()
+    public async Task OnAppearing()
     {
+        OrdersRefreshing = true;
         ErrorOccured = false;
         ErrorDetail = string.Empty;
         Orders.Clear();
@@ -42,10 +45,12 @@ public partial class OrdersViewModel : ObservableObject
             {
                 foreach (var order in orders)
                     Orders.Add(order);
+                OrdersRefreshing = false;
                 return "";
             },
             error =>
             {
+                OrdersRefreshing = false;
                 ErrorOccured = true;
                 ErrorDetail = error.Detail;
                 return "";
