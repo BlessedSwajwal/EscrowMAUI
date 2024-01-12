@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EscrowMAUI.Models;
 using EscrowMAUI.Models.DTOs;
@@ -18,6 +19,8 @@ public partial class OrdersViewModel : ObservableObject
         Orders = new();
         CreateOrderDTO = new();
     }
+
+    public double DeviceWidth => DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
     [ObservableProperty]
     bool _ordersRefreshing = false;
@@ -64,12 +67,15 @@ public partial class OrdersViewModel : ObservableObject
         ErrorOccured = false;
         ErrorDetail = string.Empty;
         var result = await _ordersService.SubmitOrder(CreateOrderDTO);
+        CreateOrderDTO = new();
 
         result.Match(
             createdOrder =>
             {
                 var order = createdOrder.Adapt<Order>();
-                Orders.Add(order);
+                var toast = Toast.Make("Order has been created. Please refresh.", CommunityToolkit.Maui.Core.ToastDuration.Short);
+                toast.Show();
+                Orders.Prepend(order);
                 return "";
             },
             error =>

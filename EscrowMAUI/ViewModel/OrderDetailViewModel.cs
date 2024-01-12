@@ -18,6 +18,9 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     }
 
     [ObservableProperty]
+    bool _bidsRefreshing = false;
+
+    [ObservableProperty]
     bool _errorOccured = false;
     [ObservableProperty]
     string _errorDetail = "";
@@ -26,10 +29,9 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     Guid _orderId;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(IsPayable))]
     SingleOrderDetail _order;
 
-    public bool IsPayable => Order is not null && Order.OrderStatus.Equals(Constants.Constants.PendingOrder);
+    public double TopGridHeight = 0.2 * (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density);
 
     public bool CanAcceptBid => (Order is not null && Order.OrderStatus.Equals("created")
         && TokenDecode.ReadJwtTokenContent(Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, "")).Id.Equals(Order.CreatorId)) ? true : false;
@@ -43,11 +45,13 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     [RelayCommand]
     public async Task OnAppearing()
     {
+        BidsRefreshing = true;
         var result = await _ordersService.GetOrderDetail(OrderId);
         result.Match(
             orderResult =>
             {
                 Order = orderResult;
+                BidsRefreshing = false;
 
                 //Checking if the order can be bidded by current user.
                 //3 checks needed: If user type is provider, if order status is created and
@@ -62,6 +66,7 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
             },
             error =>
             {
+                BidsRefreshing = false;
                 ErrorOccured = true;
                 ErrorDetail = error.Detail;
                 return "";

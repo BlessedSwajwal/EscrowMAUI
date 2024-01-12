@@ -41,6 +41,7 @@ public partial class OrdersPage : ContentPage
 
     private void bottomSheetSubmit_Clicked(object sender, EventArgs e)
     {
-        bottomSheet.State = BottomSheetState.HalfExpanded;
+        bottomSheet.Close();
+        NameEntry.Text = DescriptionEntry.Text = AllowedDaysEntry.Text = CostEntry.Text = "";
     }
 }

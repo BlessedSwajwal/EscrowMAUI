@@ -77,7 +77,7 @@ public partial class LoginViewModel : ObservableObject
 
     public async Task LoggedInCheck()
     {
-        IsProcessing = true;
+
         if (Preferences.Default.ContainsKey(Constants.Constants.TokenKeyConstant))
         {
             if (Preferences.Default.Get<string>(Constants.Constants.UserType, "").Equals(Constants.Constants.ConsumerType))
@@ -92,5 +92,4 @@ public partial class LoginViewModel : ObservableObject
         }
         return;
     }
-
 }

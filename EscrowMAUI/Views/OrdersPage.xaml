@@ -11,11 +11,11 @@
     Title="All Orders"
     Padding="10"
     x:DataType="vm:OrdersViewModel">
-    <ScrollView>
-        <Grid>
+    <Grid>
+        <ScrollView>
             <StackLayout>
                 <!--  Lable + New Order Button  -->
-                <Grid Margin="0,0,0,10" ColumnDefinitions="*, *">
+                <Grid Margin="0,0,0,10">
                     <Label
                         Grid.Column="0"
                         Margin="5,0,0,0"
@@ -23,17 +23,6 @@
                         FontSize="25"
                         HorizontalOptions="Start"
                         Text="All Orders"
-                        VerticalOptions="Center" />
-
-                    <Button
-                        Grid.Column="1"
-                        Margin="0,0,10,0"
-                        Padding="20,0"
-                        FontAttributes="Bold"
-                        HorizontalOptions="End"
-                        Pressed="Button_Pressed"
-                        Released="Button_Released"
-                        Text="Create new"
                         VerticalOptions="Center" />
                 </Grid>
 
@@ -120,7 +109,9 @@
                         CornerRadius="30"
                         HalfExpandedRatio="0.6"
                         ShowGrabber="True">
-                        <VerticalStackLayout Padding="20,10" Spacing="5">
+                        <VerticalStackLayout Padding="20,10" Spacing="15">
+
+                            <!--  Title  -->
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="25"
@@ -135,6 +126,7 @@
                                     Text="Name: "
                                     VerticalOptions="Center" />
                                 <Entry
+                                    x:Name="NameEntry"
                                     Grid.Column="1"
                                     FontSize="20"
                                     Text="{Binding CreateOrderDTO.Name}"
@@ -142,12 +134,7 @@
                             </HorizontalStackLayout>
 
                             <!--  Description of the order  -->
-                            <Grid
-                                ColumnDefinitions="Auto, *"
-                                HorizontalOptions="Start"
-                                RowDefinitions="Auto, Auto"
-                                RowSpacing="10"
-                                WidthRequest="250">
+                            <VerticalStackLayout>
                                 <Label FontSize="20" Text="Description: " />
                                 <Border
                                     Grid.Row="1"
@@ -157,54 +144,51 @@
                                     StrokeShape="RoundRectangle, 10"
                                     StrokeThickness="1">
                                     <Editor
+                                         x:Name="DescriptionEntry"
                                         Grid.Column="1"
                                         FontSize="20"
                                         HeightRequest="75"
                                         Text="{Binding CreateOrderDTO.Description}" />
                                 </Border>
-                            </Grid>
+                            </VerticalStackLayout>
+                            <!--  Allowed Days  -->
+                            <VerticalStackLayout>
+                                <Label FontSize="20" Text="Allowed Days: " />
+                                <Border
+                                    Stroke="Brown"
+                                    StrokeShape="RoundRectangle, 10"
+                                    StrokeThickness="1">
+                                    <Entry
+                                         x:Name="AllowedDaysEntry"
+                                        FontSize="20"
+                                        Keyboard="Numeric"
+                                        Placeholder="Allowed Days"
+                                        Text="{Binding CreateOrderDTO.AllowedDays}" />
+                                </Border>
+                            </VerticalStackLayout>
 
-                            <Grid
-                                Margin="10"
-                                ColumnDefinitions="*, *"
-                                ColumnSpacing="10">
-
-                                <!--  Allowed Days  -->
-                                <VerticalStackLayout>
-                                    <Label FontSize="20" Text="Allowed Days: " />
-                                    <Border
-                                        Stroke="Brown"
-                                        StrokeShape="RoundRectangle, 10"
-                                        StrokeThickness="1">
-                                        <Entry
-                                            FontSize="20"
-                                            Keyboard="Numeric"
-                                            Text="{Binding CreateOrderDTO.AllowedDays}" />
-                                    </Border>
-                                </VerticalStackLayout>
-
-                                <!--  Cost  -->
-                                <VerticalStackLayout Grid.Column="1">
-                                    <Label FontSize="20" Text="Cost: " />
-                                    <Border
-                                        Stroke="Brown"
-                                        StrokeShape="RoundRectangle, 10"
-                                        StrokeThickness="1">
-                                        <Entry
-                                            FontSize="20"
-                                            Keyboard="Numeric"
-                                            Text="{Binding CreateOrderDTO.CostInRuppees}" />
-                                    </Border>
-                                </VerticalStackLayout>
-                            </Grid>
+                            <!--  Cost  -->
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label FontSize="20" Text="Cost: " />
+                                <Border
+                                    Stroke="Brown"
+                                    StrokeShape="RoundRectangle, 10"
+                                    StrokeThickness="1">
+                                    <Entry
+                                         x:Name="CostEntry"
+                                        FontSize="20"
+                                        Keyboard="Numeric"
+                                        Text="{Binding CreateOrderDTO.CostInRuppees}" />
+                                </Border>
+                            </VerticalStackLayout>
 
                             <Button
                                 x:Name="bottomSheetSubmit"
-                                BackgroundColor="Green"
                                 Padding="30,5"
-                                CornerRadius="22"
+                                BackgroundColor="Green"
                                 Clicked="bottomSheetSubmit_Clicked"
                                 Command="{Binding FormSubmittedCommand}"
+                                CornerRadius="22"
                                 HorizontalOptions="Center"
                                 Text="Submit" />
                         </VerticalStackLayout>
@@ -213,18 +197,19 @@
 
                 </Grid>
             </StackLayout>
-            <ImageButton
-                Margin="0,0,10,10"
-                Clicked="ImageButton_Clicked"
-                HeightRequest="60"
-                HorizontalOptions="End"
-                Source="filledadd.png"
-                VerticalOptions="End"
-                WidthRequest="60">
-                <ImageButton.Behaviors>
-                    <toolkit:IconTintColorBehavior TintColor="Green" />
-                </ImageButton.Behaviors>
-            </ImageButton>
-        </Grid>
-    </ScrollView>
+
+        </ScrollView>
+        <ImageButton
+            Margin="0,0,10,10"
+            Clicked="ImageButton_Clicked"
+            HeightRequest="60"
+            HorizontalOptions="End"
+            Source="filledadd.png"
+            VerticalOptions="End"
+            WidthRequest="60">
+            <ImageButton.Behaviors>
+                <toolkit:IconTintColorBehavior TintColor="Green" />
+            </ImageButton.Behaviors>
+        </ImageButton>
+    </Grid>
 </ContentPage>

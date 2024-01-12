@@ -11,6 +11,8 @@ public partial class OrderDetailPage : ContentPage
         InitializeComponent();
         BindingContext = viewModel;
         this.viewModel = viewModel;
+        var rowDefinition = new RowDefinition { Height = new GridLength(viewModel.TopGridHeight, GridUnitType.Star) };
+        PageGrid.RowDefinitions.Add(rowDefinition);
     }
     protected async override void OnAppearing()
     {
@@ -23,7 +25,7 @@ public partial class OrderDetailPage : ContentPage
         ((Button)sender).BackgroundColor = Colors.Gray;
         var parameters = new Dictionary<string, object>
         {
-            [nameof(CreateBidViewModel.OrderId)] = Guid.Parse(OrderIdLabel.Text)
+            [nameof(CreateBidViewModel.OrderId)] = ((OrderDetailViewModel)BindingContext).Order.Id
         };
         await Shell.Current.GoToAsync(nameof(CreateBidPage), true, parameters);
     }

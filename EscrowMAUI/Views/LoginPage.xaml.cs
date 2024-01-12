@@ -13,6 +13,12 @@ public partial class LoginPage : ContentPage
         _loginViewModel = loginViewModel;
     }
 
+    protected async override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+        await _loginViewModel.LoggedInCheck();
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();

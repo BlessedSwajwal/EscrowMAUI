@@ -9,7 +9,6 @@
     x:DataType="vm:CreateBidViewModel">
     <Border
         Padding="10"
-        BackgroundColor="White"
         HorizontalOptions="Center"
         StrokeShape="RoundRectangle, 20"
         StrokeThickness="2">
@@ -20,42 +19,38 @@
                 Text="Create a new bid."
                 VerticalOptions="Center" />
 
-            <!--  Bid Comment  -->
-            <VerticalStackLayout>
-                <Label FontSize="20" Text="Description: " />
+            <!--  Bid Description  -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Description: " />
                 <Border
+                    Padding="5,2"
                     Stroke="Brown"
                     StrokeShape="RoundRectangle, 20"
                     StrokeThickness="1">
                     <Editor
                         Grid.Column="1"
-                        FontSize="20"
-                        HeightRequest="120"
-                        Text="{Binding BidDTO.Comment}"
-                        TextColor="Black"
-                        WidthRequest="200" />
+                        AutoSize="TextChanges"
+                        Text="{Binding BidDTO.Comment}" />
                 </Border>
             </VerticalStackLayout>
 
             <!--  Bid Amount  -->
             <VerticalStackLayout Spacing="10">
-                <Label
-                    FontSize="20"
-                    Text="Proposed Amount: "
-                    VerticalOptions="Center" />
+                <Label Text="Proposed Amount: " VerticalOptions="Center" />
 
-                <Border StrokeShape="RoundRectangle, 20">
+                <Border Padding="5,2" StrokeShape="RoundRectangle, 20">
                     <Entry
-                        FontSize="20"
                         Keyboard="Numeric"
-                        WidthRequest="80"
                         Text="{Binding BidDTO.ProposedAmountInRuppee}"
                         VerticalOptions="Center" />
                 </Border>
             </VerticalStackLayout>
 
             <Button
+                Padding="35,0"
+                BackgroundColor="Green"
                 Command="{Binding BidFormSubmittedCommand}"
+                CornerRadius="22"
                 HorizontalOptions="Center"
                 Text="Submit" />
         </VerticalStackLayout>
