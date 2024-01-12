@@ -144,7 +144,7 @@
                                     StrokeShape="RoundRectangle, 10"
                                     StrokeThickness="1">
                                     <Editor
-                                         x:Name="DescriptionEntry"
+                                        x:Name="DescriptionEntry"
                                         Grid.Column="1"
                                         FontSize="20"
                                         HeightRequest="75"
@@ -159,7 +159,7 @@
                                     StrokeShape="RoundRectangle, 10"
                                     StrokeThickness="1">
                                     <Entry
-                                         x:Name="AllowedDaysEntry"
+                                        x:Name="AllowedDaysEntry"
                                         FontSize="20"
                                         Keyboard="Numeric"
                                         Placeholder="Allowed Days"
@@ -175,7 +175,7 @@
                                     StrokeShape="RoundRectangle, 10"
                                     StrokeThickness="1">
                                     <Entry
-                                         x:Name="CostEntry"
+                                        x:Name="CostEntry"
                                         FontSize="20"
                                         Keyboard="Numeric"
                                         Text="{Binding CreateOrderDTO.CostInRuppees}" />

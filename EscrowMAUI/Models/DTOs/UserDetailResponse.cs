@@ -1,6 +1,6 @@
 ﻿namespace EscrowMAUI.Models.DTOs;
 
-public class ConsumerDetailResponse
+public class UserDetailResponse
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; }

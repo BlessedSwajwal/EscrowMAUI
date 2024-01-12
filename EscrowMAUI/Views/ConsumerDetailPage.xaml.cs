@@ -4,7 +4,6 @@ namespace EscrowMAUI.Views;
 
 public partial class ConsumerDetailPage : ContentPage
 {
-
     public ConsumerDetailPage(ConsumerDetailViewModel consumerDetailViewModel)
     {
         InitializeComponent();

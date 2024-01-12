@@ -32,14 +32,14 @@
                                 FontAttributes="Bold"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text="Total Orders: "
+                                Text="{Binding OrdersCountLabel}"
                                 TextColor="Green" />
 
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="20"
                                 HorizontalOptions="Center"
-                                Text="{Binding ConsumerDetail.TotalOrderCount}"
+                                Text="{Binding UserDetail.TotalOrderCount}"
                                 TextColor="Green" />
                         </HorizontalStackLayout>
 
@@ -71,7 +71,7 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="16"
-                                Text="{Binding ConsumerDetail.Email}" />
+                                Text="{Binding UserDetail.Email}" />
                         </Grid>
 
                         <!--  Mobile No  -->
@@ -80,7 +80,7 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="16"
-                                Text="{Binding ConsumerDetail.MobileNo}" />
+                                Text="{Binding UserDetail.MobileNo}" />
                         </Grid>
 
                         <!--  UserType  -->
@@ -89,7 +89,7 @@
                             <Label
                                 Grid.Column="1"
                                 FontSize="16"
-                                Text="{Binding ConsumerDetail.UserType}"
+                                Text="{Binding UserDetail.UserType}"
                                 TextColor="Red" />
                         </Grid>
 
@@ -113,9 +113,10 @@
                 x:Name="NavigateTemp"
                 Margin="70,0"
                 BorderColor="RosyBrown"
+                Clicked="NavigateTemp_Clicked"
                 CornerRadius="22"
                 Text="Orders Page"
-                Clicked="NavigateTemp_Clicked"
+                IsVisible="{Binding IsConsumer}"
                 VerticalOptions="End" />
         </VerticalStackLayout>
     </ScrollView>

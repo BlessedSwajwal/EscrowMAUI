@@ -9,24 +9,34 @@ public partial class ConsumerDetailViewModel : ObservableObject
     private readonly AuthServices _authServices;
     public ConsumerDetailViewModel(AuthServices authServices)
     {
-        ConsumerDetail = new();
+        UserDetail = new();
         _authServices = authServices;
     }
 
-    public string FullName => ConsumerDetail.FirstName + " " + ConsumerDetail.LastName;
+    public string FullName => UserDetail.FirstName + " " + UserDetail.LastName;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(FullName))]
-    ConsumerDetailResponse _consumerDetail;
+    UserDetailResponse _userDetail;
+
+    [ObservableProperty]
+    bool _isConsumer = false;
+
+    [ObservableProperty]
+    string _ordersCountLabel = "Total Orders: ";
+
 
     public async Task OnAppearing()
     {
-        var result = await _authServices.GetConsumerDetail();
+
+        var result = await _authServices.GetUserDetail();
 
         result.Match(
-                consumerDetailRes =>
+                userDetailRes =>
                 {
-                    ConsumerDetail = consumerDetailRes;
+                    UserDetail = userDetailRes;
+                    IsConsumer = (UserDetail.UserType.Equals("CONSUMER"));
+                    OrdersCountLabel = IsConsumer ? "Total Orders: " : "Accepted Orders: ";
                     return "";
                 },
                 problemRes =>

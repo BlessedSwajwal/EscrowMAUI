@@ -34,16 +34,17 @@ public class AuthServices(HttpClient httpClient)
         }
     }
 
-    public async Task<OneOf<ConsumerDetailResponse, Problem>> GetConsumerDetail()
+    public async Task<OneOf<UserDetailResponse, Problem>> GetUserDetail()
     {
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
 
-        var response = await httpClient.GetAsync("Consumer/details");
+        var response = Preferences.Default.Get<string>(Constants.Constants.UserType, "").ToLower().Equals("consumer") ? await httpClient.GetAsync("Consumer/details") : await httpClient.GetAsync("Provider/details");
 
         if (response.IsSuccessStatusCode)
         {
-            var consumerDetail = await response.Content.ReadFromJsonAsync<ConsumerDetailResponse>();
-            return consumerDetail;
+            var userResponse = await response.Content.ReadFromJsonAsync<UserDetailResponse
+                >();
+            return userResponse;
         }
         else
         {

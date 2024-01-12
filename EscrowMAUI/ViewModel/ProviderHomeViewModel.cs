@@ -46,7 +46,7 @@ public partial class ProviderHomeViewModel : ObservableObject
     [RelayCommand]
     async Task GoToUserDetail()
     {
-        await Shell.Current.GoToAsync(nameof(UserDetailPage));
+        await Shell.Current.GoToAsync(nameof(ConsumerDetailPage));
     }
 
     [RelayCommand]

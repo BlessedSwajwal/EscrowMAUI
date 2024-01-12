@@ -7,8 +7,7 @@
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="All Orders"
     Padding="10"
-    x:DataType="vm:CreatedOrdersViewModel"
-    BackgroundColor="{StaticResource BackgroundColor}">
+    x:DataType="vm:CreatedOrdersViewModel">
     <ScrollView>
         <VerticalStackLayout Spacing="10">
             <Label
@@ -21,36 +20,28 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="model:Order">
                         <Border
+                            Margin="0,3"
                             Padding="20"
-                            Background="White"
                             StrokeShape="RoundRectangle, 20"
                             StrokeThickness="2">
-                            <Border.Resources>
-                                <Style TargetType="Label">
-                                    <Setter Property="FontSize" Value="20" />
-                                </Style>
-                            </Border.Resources>
-                            <VerticalStackLayout>
+                            <VerticalStackLayout Spacing="8">
                                 <!--  Order Name  -->
-                                <HorizontalStackLayout Spacing="20">
+                                <Grid ColumnDefinitions="75, *">
                                     <Label Text="Name: " />
-                                    <Label Text="{Binding Name}" />
-                                </HorizontalStackLayout>
+                                    <Label Grid.Column="1" Text="{Binding Name}" />
+                                </Grid>
 
                                 <!--  Description  -->
-                                <HorizontalStackLayout>
+                                <Grid ColumnDefinitions="75, *">
                                     <Label Text="Description: " />
-                                    <Label
-                                        LineBreakMode="WordWrap"
-                                        Text="{Binding Description}"
-                                        WidthRequest="200" />
-                                </HorizontalStackLayout>
+                                    <Label Grid.Column="1" Text="{Binding Description}" />
+                                </Grid>
 
                                 <!--  No of bids  -->
-                                <HorizontalStackLayout>
-                                    <Label Text="Bid Count: " />
-                                    <Label Text="{Binding BidsCount}" />
-                                </HorizontalStackLayout>
+                                <Grid ColumnDefinitions="75, *">
+                                    <Label Text="Bids Count: " />
+                                    <Label Grid.Column="1" Text="{Binding BidsCount}" />
+                                </Grid>
 
                                 <!--  Bid Button  -->
                                 <Button

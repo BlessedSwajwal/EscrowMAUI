@@ -24,7 +24,20 @@ public partial class Order : ObservableObject
 
     public Guid ProviderId { get; set; }
     public DateTime AcceptedDate { get; set; }
-    public DateTime DeadLine { get; set; }
+
+    private DateTime _deadLine;
+    public DateTime DeadLine
+    {
+        get
+        {
+            if (AcceptedDate.Equals(DateTime.MinValue)) return DateTime.MinValue;
+            return _deadLine;
+        }
+        set
+        {
+            _deadLine = value;
+        }
+    }
     public int BidsCount { get; set; }
     public Guid AcceptedBid { get; set; }
 }
