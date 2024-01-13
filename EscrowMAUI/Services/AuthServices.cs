@@ -19,7 +19,7 @@ public class AuthServices(HttpClient httpClient)
 
         var jsonString = JsonSerializer.Serialize(payload);
         var postString = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
-
+        var baseAdd = httpClient.BaseAddress;
         var result = await httpClient.PostAsync($"{userType}/login", postString);
 
         if (result.IsSuccessStatusCode)

@@ -6,28 +6,16 @@
     xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
     xmlns:model="clr-namespace:EscrowMAUI.Models"
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
-    Title="Provider Home"
+    Title="Selected bids"
     Padding="5"
     x:DataType="vm:ProviderHomeViewModel">
     <ScrollView>
         <VerticalStackLayout Spacing="10">
 
-            <Grid ColumnDefinitions="Auto,*,Auto">
-                <Button
-                    Clicked="Button_Clicked"
-                    HorizontalOptions="Center"
-                    Text="Go To Created Orders" />
-
-                <Button
-                    Grid.Column="2"
-                    Command="{Binding GoToUserDetailCommand}"
-                    HorizontalOptions="End"
-                    Text="User Detail" />
-            </Grid>
-
-            <Label FontSize="Large"
-                   Text="Selected bids."
-                   HorizontalOptions="Center" />
+            <Label
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="Selected bids." />
 
             <dxc:ShimmerView IsLoading="{Binding IsLoading}">
                 <dxc:ShimmerView.LoadingView>
@@ -97,8 +85,10 @@
                                         Color="Transparent" />
                                     <Label
                                         x:Name=""
+                                        Padding="10"
                                         FontSize="Large"
                                         HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
                                         Text="You have not got any selected bids. Keep bidding!"
                                         VerticalOptions="Center" />
                                 </VerticalStackLayout>
