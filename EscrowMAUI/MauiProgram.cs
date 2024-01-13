@@ -5,7 +5,6 @@ using EscrowMAUI.Services;
 using EscrowMAUI.ViewModel;
 using EscrowMAUI.Views;
 using Mapster;
-using Microsoft.Extensions.Logging;
 
 namespace EscrowMAUI
 {
@@ -29,7 +28,7 @@ namespace EscrowMAUI
             {
                 builder.Services.AddSingleton(sp => new HttpClient
                 {
-                    BaseAddress = new Uri("https://skskkc9d-7240.asse.devtunnels.ms/api/")
+                    BaseAddress = new Uri("http://dragonescrow-001-site1.htempurl.com/api/")
                 });
             }
 

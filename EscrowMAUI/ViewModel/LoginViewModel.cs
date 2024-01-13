@@ -63,9 +63,11 @@ public partial class LoginViewModel : ObservableObject
                     Preferences.Default.Set(Constants.Constants.UserType, userResponse.UserType);
                     IsProcessing = false;
                     //TODO: Redirect to home page
+                    var appShell = (AppShell)App.Current.MainPage;
+                    appShell.UpdateTabs();
                     if (userResponse.UserType.Equals(Constants.Constants.ConsumerType, StringComparison.OrdinalIgnoreCase))
                     {
-                        await Shell.Current.GoToAsync($"{nameof(ConsumerDetailPage)}");
+                        await Shell.Current.GoToAsync($"{nameof(OrdersPage)}");
                     }
                     else
                     {

@@ -19,6 +19,8 @@ public partial class ConsumerDetailPage : ContentPage
     private async void Button_Clicked(object sender, EventArgs e)
     {
         Preferences.Default.Clear();
+        var appShell = (AppShell)App.Current.MainPage;
+        appShell.UpdateTabs();
         await Shell.Current.GoToAsync(nameof(LoginPage));
     }
 
