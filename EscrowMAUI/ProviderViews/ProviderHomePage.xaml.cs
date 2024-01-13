@@ -17,9 +17,10 @@ public partial class ProviderHomePage : ContentPage
         await Shell.Current.GoToAsync(nameof(CreatedOrdersPage));
     }
 
-    //protected async override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    await _providerHomeViewModel.OnAppearing();
-    //}
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await _providerHomeViewModel.OnAppearing();
+    }
+
 }

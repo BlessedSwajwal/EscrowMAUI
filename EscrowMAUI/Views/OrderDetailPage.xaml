@@ -3,6 +3,7 @@
     x:Class="EscrowMAUI.Views.OrderDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:model="clr-namespace:EscrowMAUI.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
@@ -141,62 +142,84 @@
                         Released="Button_Released"
                         Text="Create Bid" />
 
+                    <dxc:ShimmerView IsLoading="{Binding BidsRefreshing}">
+                        <dxc:ShimmerView.LoadingView>
+                            <Grid RowDefinitions="150, 150, 150, 150" RowSpacing="8">
+                                <RoundRectangle CornerRadius="20" HeightRequest="130" />
+                                <RoundRectangle
+                                    Grid.Row="1"
+                                    CornerRadius="20"
+                                    HeightRequest="130" />
+                                <RoundRectangle
+                                    Grid.Row="2"
+                                    CornerRadius="20"
+                                    HeightRequest="130" />
+                                <RoundRectangle
+                                    Grid.Row="3"
+                                    CornerRadius="20"
+                                    HeightRequest="130" />
+                            </Grid>
+                        </dxc:ShimmerView.LoadingView>
+                        <dxc:ShimmerView.Content>
+                            <dxcv:DXCollectionView
+                                IsPullToRefreshEnabled="True"
+                                IsRefreshing="{Binding BidsRefreshing}"
+                                ItemsSource="{Binding Order.Bids}"
+                                PullToRefreshCommand="{Binding AppearingCommand}">
+                                <dxcv:DXCollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Bid">
+                                        <Border
+                                            Margin="3,7"
+                                            Padding="10"
+                                            StrokeShape="RoundRectangle 20"
+                                            StrokeThickness="2">
+                                            <VerticalStackLayout HorizontalOptions="Start" Spacing="10">
+                                                <!--  Propesed Amount  -->
+                                                <Grid ColumnDefinitions="120, *">
+                                                    <Label Text="Proposed Amount: " />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        Text="{Binding ProposedAmountInRuppees}"
+                                                        TextDecorations="Underline"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+
+                                                <!--  Comment  -->
+                                                <Grid ColumnDefinitions="120, *">
+                                                    <Label Text="Comment: " />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        Text="{Binding Comment}"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+
+                                                <!--  Bid Status  -->
+                                                <Grid ColumnDefinitions="120, *">
+                                                    <Label Text="Status: " />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        Text="{Binding BidStatus}"
+                                                        TextColor="Red"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+
+                                                <!--  Accept Bid Button  -->
+                                                <Button
+                                                    Margin="10,5"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=AcceptBidCommand}"
+                                                    CommandParameter="{Binding BidId}"
+                                                    HorizontalOptions="End"
+                                                    IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=CanAcceptBid}"
+                                                    Text="Accept" />
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </dxcv:DXCollectionView.ItemTemplate>
+                            </dxcv:DXCollectionView>
+                        </dxc:ShimmerView.Content>
+                    </dxc:ShimmerView>
                     <!--  Bid view  -->
-                    <dxcv:DXCollectionView
-                        IsPullToRefreshEnabled="True"
-                        IsRefreshing="{Binding BidsRefreshing}"
-                        ItemsSource="{Binding Order.Bids}"
-                        PullToRefreshCommand="{Binding AppearingCommand}">
-                        <dxcv:DXCollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Bid">
-                                <Border
-                                    Margin="3,7"
-                                    Padding="10"
-                                    StrokeShape="RoundRectangle 20"
-                                    StrokeThickness="2">
-                                    <VerticalStackLayout HorizontalOptions="Start" Spacing="10">
-                                        <!--  Propesed Amount  -->
-                                        <Grid ColumnDefinitions="120, *">
-                                            <Label Text="Proposed Amount: " />
-                                            <Label
-                                                Grid.Column="1"
-                                                Text="{Binding ProposedAmountInRuppees}"
-                                                TextDecorations="Underline"
-                                                VerticalOptions="Center" />
-                                        </Grid>
 
-                                        <!--  Comment  -->
-                                        <Grid ColumnDefinitions="120, *">
-                                            <Label Text="Comment: " />
-                                            <Label
-                                                Grid.Column="1"
-                                                Text="{Binding Comment}"
-                                                VerticalOptions="Center" />
-                                        </Grid>
-
-                                        <!--  Bid Status  -->
-                                        <Grid ColumnDefinitions="120, *">
-                                            <Label Text="Status: " />
-                                            <Label
-                                                Grid.Column="1"
-                                                Text="{Binding BidStatus}"
-                                                TextColor="Red"
-                                                VerticalOptions="Center" />
-                                        </Grid>
-
-                                        <!--  Accept Bid Button  -->
-                                        <Button
-                                            Margin="10,5"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=AcceptBidCommand}"
-                                            CommandParameter="{Binding BidId}"
-                                            HorizontalOptions="End"
-                                            IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=CanAcceptBid}"
-                                            Text="Accept" />
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </dxcv:DXCollectionView.ItemTemplate>
-                    </dxcv:DXCollectionView>
 
                 </VerticalStackLayout>
             </Border>

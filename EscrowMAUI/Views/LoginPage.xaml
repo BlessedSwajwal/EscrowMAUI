@@ -7,7 +7,8 @@
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="Login"
     x:DataType="vm:LoginViewModel"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
 
     <ContentPage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -89,12 +90,18 @@
                 </Border>
             </VerticalStackLayout>
 
-            <Button
-                Padding="0,20"
-                Command="{Binding LoginRequestedCommand}"
-                CornerRadius="20"
-                IsEnabled="{Binding IsFormValid}"
-                Text="Log In" />
+            <Grid>
+                <Button
+                    Padding="0,20"
+                    Command="{Binding LoginRequestedCommand}"
+                    CornerRadius="20"
+                    IsEnabled="{Binding IsFormValid}"
+                    Text="Log In" />
+                <ActivityIndicator
+                    HeightRequest="30"
+                    IsRunning="{Binding IsProcessing}"
+                    WidthRequest="30" />
+            </Grid>
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
                 <Label Text="Don't have account?" />
                 <Label

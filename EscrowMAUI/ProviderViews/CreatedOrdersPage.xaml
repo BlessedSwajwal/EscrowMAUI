@@ -3,6 +3,7 @@
     x:Class="EscrowMAUI.ProviderViews.CreatedOrdersPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
     xmlns:model="clr-namespace:EscrowMAUI.Models"
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="All Orders"
@@ -16,44 +17,67 @@
                 Text="Bid on orders"
                 VerticalOptions="Center" />
 
-            <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="model:Order">
-                        <Border
-                            Margin="0,3"
-                            Padding="20"
-                            StrokeShape="RoundRectangle, 20"
-                            StrokeThickness="2">
-                            <VerticalStackLayout Spacing="8">
-                                <!--  Order Name  -->
-                                <Grid ColumnDefinitions="75, *">
-                                    <Label Text="Name: " />
-                                    <Label Grid.Column="1" Text="{Binding Name}" />
-                                </Grid>
+            <dxc:ShimmerView IsLoading="{Binding IsLoading}">
+                <dxc:ShimmerView.LoadingView>
+                    <Grid RowDefinitions="200, 200, 200, 200" RowSpacing="15">
+                        <RoundRectangle CornerRadius="20" HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="1"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="2"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="3"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                    </Grid>
+                </dxc:ShimmerView.LoadingView>
+                <dxc:ShimmerView.Content>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="model:Order">
+                                <Border
+                                    Margin="0,3"
+                                    Padding="20"
+                                    StrokeShape="RoundRectangle, 20"
+                                    StrokeThickness="2">
+                                    <VerticalStackLayout Spacing="8">
+                                        <!--  Order Name  -->
+                                        <Grid ColumnDefinitions="75, *">
+                                            <Label Text="Name: " />
+                                            <Label Grid.Column="1" Text="{Binding Name}" />
+                                        </Grid>
 
-                                <!--  Description  -->
-                                <Grid ColumnDefinitions="75, *">
-                                    <Label Text="Description: " />
-                                    <Label Grid.Column="1" Text="{Binding Description}" />
-                                </Grid>
+                                        <!--  Description  -->
+                                        <Grid ColumnDefinitions="75, *">
+                                            <Label Text="Description: " />
+                                            <Label Grid.Column="1" Text="{Binding Description}" />
+                                        </Grid>
 
-                                <!--  No of bids  -->
-                                <Grid ColumnDefinitions="75, *">
-                                    <Label Text="Bids Count: " />
-                                    <Label Grid.Column="1" Text="{Binding BidsCount}" />
-                                </Grid>
+                                        <!--  No of bids  -->
+                                        <Grid ColumnDefinitions="75, *">
+                                            <Label Text="Bids Count: " />
+                                            <Label Grid.Column="1" Text="{Binding BidsCount}" />
+                                        </Grid>
 
-                                <!--  Bid Button  -->
-                                <Button
-                                    Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CreatedOrdersViewModel}}, Path=GoToOrderDetailCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    HorizontalOptions="End"
-                                    Text="Detail" />
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
+                                        <!--  Bid Button  -->
+                                        <Button
+                                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CreatedOrdersViewModel}}, Path=GoToOrderDetailCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            HorizontalOptions="End"
+                                            Text="Detail" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </dxc:ShimmerView.Content>
+            </dxc:ShimmerView>
+
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

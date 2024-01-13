@@ -3,6 +3,7 @@
     x:Class="EscrowMAUI.ProviderViews.ProviderHomePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
     xmlns:model="clr-namespace:EscrowMAUI.Models"
     xmlns:vm="clr-namespace:EscrowMAUI.ViewModel"
     Title="Provider Home"
@@ -24,47 +25,90 @@
                     Text="User Detail" />
             </Grid>
 
-            <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="model:Order">
-                        <Border
-                            Padding="20,10"
-                            StrokeShape="RoundRectangle, 20"
-                            StrokeThickness="2">
-                            <VerticalStackLayout Spacing="12">
+            <Label FontSize="Large"
+                   Text="Selected bids."
+                   HorizontalOptions="Center" />
 
-                                <!--  Name  -->
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="25"
-                                    HorizontalOptions="Center"
-                                    Text="{Binding Name}" />
+            <dxc:ShimmerView IsLoading="{Binding IsLoading}">
+                <dxc:ShimmerView.LoadingView>
+                    <Grid RowDefinitions="200, 200, 200, 200" RowSpacing="15">
+                        <RoundRectangle CornerRadius="20" HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="1"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="2"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                        <RoundRectangle
+                            Grid.Row="3"
+                            CornerRadius="20"
+                            HeightRequest="180" />
+                    </Grid>
+                </dxc:ShimmerView.LoadingView>
+                <dxc:ShimmerView.Content>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Orders}" Direction="Column">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="model:Order">
+                                <Border
+                                    Padding="20,10"
+                                    StrokeShape="RoundRectangle, 20"
+                                    StrokeThickness="2">
+                                    <VerticalStackLayout Spacing="12">
 
-                                <!--  Description  -->
-                                <Grid ColumnDefinitions="Auto, *">
-                                    <Label Text="Description: " />
-                                    <Label Grid.Column="1" Text="{Binding Description}" />
-                                </Grid>
+                                        <!--  Name  -->
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="25"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Name}" />
 
-                                <!--  No of bids  -->
-                                <HorizontalStackLayout>
-                                    <Label Text="DeadLine: " />
-                                    <Label Text="{Binding DeadLine}" />
-                                </HorizontalStackLayout>
+                                        <!--  Description  -->
+                                        <Grid ColumnDefinitions="Auto, *">
+                                            <Label Text="Description: " />
+                                            <Label Grid.Column="1" Text="{Binding Description}" />
+                                        </Grid>
 
-                                <!--  View Details Button  -->
-                                <Button
-                                    Padding="20,0"
-                                    Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ProviderHomeViewModel}}, Path=GoToOrderDetailCommand}"
-                                    CommandParameter="{Binding Id}"
-                                    CornerRadius="22"
-                                    HorizontalOptions="End"
-                                    Text="View Details" />
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
+                                        <!--  No of bids  -->
+                                        <HorizontalStackLayout>
+                                            <Label Text="DeadLine: " />
+                                            <Label Text="{Binding DeadLine}" />
+                                        </HorizontalStackLayout>
+
+                                        <!--  View Details Button  -->
+                                        <Button
+                                            Padding="20,0"
+                                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:ProviderHomeViewModel}}, Path=GoToOrderDetailCommand}"
+                                            CommandParameter="{Binding Id}"
+                                            CornerRadius="22"
+                                            HorizontalOptions="End"
+                                            Text="View Details" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                        <BindableLayout.EmptyViewTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout HorizontalOptions="Center">
+                                    <BoxView
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="100"
+                                        Color="Transparent" />
+                                    <Label
+                                        x:Name=""
+                                        FontSize="Large"
+                                        HorizontalOptions="Center"
+                                        Text="You have not got any selected bids. Keep bidding!"
+                                        VerticalOptions="Center" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.EmptyViewTemplate>
+                    </FlexLayout>
+                </dxc:ShimmerView.Content>
+            </dxc:ShimmerView>
+
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

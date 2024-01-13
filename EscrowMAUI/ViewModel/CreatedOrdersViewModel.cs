@@ -17,6 +17,9 @@ public partial class CreatedOrdersViewModel : ObservableObject
         Orders = new();
     }
 
+    [ObservableProperty]
+    bool _isLoading = false;
+
     public ObservableCollection<Order> Orders { get; private set; }
     public bool ErrorOccured = false;
     public string ErrorDetail = "";
@@ -24,6 +27,7 @@ public partial class CreatedOrdersViewModel : ObservableObject
     [RelayCommand]
     public async Task OnAppearing()
     {
+        IsLoading = true;
         ErrorOccured = false;
         ErrorDetail = string.Empty;
         Orders.Clear();
@@ -37,11 +41,14 @@ public partial class CreatedOrdersViewModel : ObservableObject
             },
             error =>
             {
+
                 ErrorOccured = true;
                 ErrorDetail = error.Detail;
                 return "";
             }
             );
+
+        IsLoading = false;
     }
 
     [RelayCommand]

@@ -6,6 +6,7 @@
 
     <!--  Custom colors  -->
     <Color x:Key="OffWhite">#F5F5F5</Color>
+    <Color x:Key="DarkWhite">#E1D9D1</Color>
     <Color x:Key="Charcoal">#444444</Color>
     <Color x:Key="SuperDark">#121212</Color>
 

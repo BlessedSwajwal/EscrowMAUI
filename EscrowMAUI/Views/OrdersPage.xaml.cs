@@ -12,6 +12,8 @@ public partial class OrdersPage : ContentPage
         _ordersViewModel = ordersViewModel;
         BindingContext = _ordersViewModel;
         bottomSheet.AllowedState = BottomSheetAllowedState.All;
+        var s = new ShimmerView();
+
     }
 
     private async void Button_Pressed(object sender, EventArgs e)

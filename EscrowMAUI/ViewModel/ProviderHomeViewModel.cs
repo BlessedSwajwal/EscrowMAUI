@@ -14,8 +14,11 @@ public partial class ProviderHomeViewModel : ObservableObject
     {
         _ordersService = ordersService;
         Orders = new();
-        OnAppearing();
     }
+
+    [ObservableProperty]
+    bool _isLoading;
+
     public bool ErrorOccured = false;
     public string ErrorDetail = "";
 
@@ -23,6 +26,7 @@ public partial class ProviderHomeViewModel : ObservableObject
 
     public async Task OnAppearing()
     {
+        IsLoading = true;
         ErrorOccured = false;
         ErrorDetail = string.Empty;
         Orders.Clear();
@@ -32,10 +36,12 @@ public partial class ProviderHomeViewModel : ObservableObject
             {
                 foreach (var order in orders)
                     Orders.Add(order);
+                IsLoading = false;
                 return "";
             },
             error =>
             {
+                IsLoading = false;
                 ErrorOccured = true;
                 ErrorDetail = error.Detail;
                 return "";

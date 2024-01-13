@@ -27,82 +27,109 @@
                 </Grid>
 
                 <Grid>
-                    <dxcv:DXCollectionView
-                        IsPullToRefreshEnabled="True"
-                        IsRefreshing="{Binding OrdersRefreshing}"
-                        ItemsSource="{Binding Orders}"
-                        PullToRefreshCommand="{Binding AppearingCommand}">
-                        <dxcv:DXCollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Order">
-                                <Border
-                                    Margin="3,7"
-                                    Padding="10"
-                                    FlexLayout.Basis="100%"
-                                    StrokeShape="RoundRectangle 20"
-                                    StrokeThickness="2">
 
-                                    <VerticalStackLayout HorizontalOptions="Start" Spacing="10">
-                                        <Label
-                                            FontSize="25"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Name}" />
+                    <dxc:ShimmerView IsLoading="{Binding OrdersRefreshing}">
+                        <dxc:ShimmerView.LoadingView>
+                            <Grid RowDefinitions="200, 200, 200, 200" RowSpacing="15">
+                                <RoundRectangle CornerRadius="20" HeightRequest="180" />
+                                <RoundRectangle
+                                    Grid.Row="1"
+                                    CornerRadius="20"
+                                    HeightRequest="180" />
+                                <RoundRectangle
+                                    Grid.Row="2"
+                                    CornerRadius="20"
+                                    HeightRequest="180" />
+                                <RoundRectangle
+                                    Grid.Row="3"
+                                    CornerRadius="20"
+                                    HeightRequest="180" />
+                            </Grid>
+                        </dxc:ShimmerView.LoadingView>
+                        <dxc:ShimmerView.Content>
+                            <dxcv:DXCollectionView
+                                IsPullToRefreshEnabled="True"
+                                IsRefreshing="{Binding OrdersRefreshing}"
+                                ItemsSource="{Binding Orders}"
+                                PullToRefreshCommand="{Binding AppearingCommand}">
+                                <dxcv:DXCollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Order">
+                                        <Border
+                                            Margin="3,7"
+                                            Padding="10"
+                                            FlexLayout.Basis="100%"
+                                            StrokeShape="RoundRectangle 20"
+                                            StrokeThickness="2">
+
+                                            <VerticalStackLayout HorizontalOptions="Start" Spacing="10">
+                                                <Label
+                                                    FontSize="25"
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding Name}" />
+
+                                                <!--  Description  -->
+
+                                                <VerticalStackLayout>
+                                                    <Label Text="Description: " />
+                                                    <BoxView BackgroundColor="Transparent" HeightRequest="10" />
+                                                    <Label Padding="40,0,0,0" Text="{Binding Description}" />
+
+                                                </VerticalStackLayout>
 
 
-                                        <!--  Description  -->
-
-                                        <VerticalStackLayout>
-                                            <Label Text="Description: " />
-                                            <BoxView BackgroundColor="Transparent" HeightRequest="10" />
-                                            <Label Padding="40,0,0,0" Text="{Binding Description}" />
-
-                                        </VerticalStackLayout>
+                                                <!--  Order Status  -->
 
 
-                                        <!--  Order Status  -->
+                                                <HorizontalStackLayout>
+                                                    <Label Margin="0,0,10,0" Text="Order Status: " />
+                                                    <Label Text="{Binding OrderStatus}" />
 
-                                        <HorizontalStackLayout>
-                                            <Label Margin="0,0,10,0" Text="Order Status: " />
-                                            <Label Text="{Binding OrderStatus}" />
-
-                                        </HorizontalStackLayout>
+                                                </HorizontalStackLayout>
 
 
-                                        <!--  Allowed Days  -->
 
-                                        <HorizontalStackLayout>
-                                            <Label Margin="0,0,10,0" Text="Allowed Days: " />
-                                            <Label Text="{Binding AllowedDays}" />
-
-                                        </HorizontalStackLayout>
+                                                <!--  Allowed Days  -->
 
 
-                                        <!--  Bids Count  -->
+                                                <HorizontalStackLayout>
+                                                    <Label Margin="0,0,10,0" Text="Allowed Days: " />
+                                                    <Label Text="{Binding AllowedDays}" />
 
-                                        <HorizontalStackLayout>
-                                            <Label Margin="0,0,10,0" Text="Bids Count: " />
-                                            <Label Text="{Binding BidsCount}" />
-                                        </HorizontalStackLayout>
+                                                </HorizontalStackLayout>
 
-                                        <Image
-                                            Margin="0,0,0,15"
-                                            HeightRequest="50"
-                                            HorizontalOptions="Center"
-                                            Source="rightarrow.png"
-                                            WidthRequest="50">
-                                            <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="Red" />
-                                            </Image.Behaviors>
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdersViewModel}}, Path=GoToOrderDetailCommand}" CommandParameter="{Binding Id}" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </dxcv:DXCollectionView.ItemTemplate>
-                    </dxcv:DXCollectionView>
+
+
+                                                <!--  Bids Count  -->
+
+
+                                                <HorizontalStackLayout>
+                                                    <Label Margin="0,0,10,0" Text="Bids Count: " />
+                                                    <Label Text="{Binding BidsCount}" />
+                                                </HorizontalStackLayout>
+
+                                                <Image
+                                                    Margin="0,0,0,15"
+                                                    HeightRequest="50"
+                                                    HorizontalOptions="Center"
+                                                    Source="rightarrow.png"
+                                                    WidthRequest="50">
+                                                    <Image.Behaviors>
+                                                        <toolkit:IconTintColorBehavior TintColor="Red" />
+                                                    </Image.Behaviors>
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdersViewModel}}, Path=GoToOrderDetailCommand}" CommandParameter="{Binding Id}" />
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </dxcv:DXCollectionView.ItemTemplate>
+                            </dxcv:DXCollectionView>
+                        </dxc:ShimmerView.Content>
+                    </dxc:ShimmerView>
 
                     <!--  BottomSheet for order creation  -->
+
                     <dxc:BottomSheet
                         x:Name="bottomSheet"
                         AllowDismiss="True"
@@ -111,7 +138,9 @@
                         ShowGrabber="True">
                         <VerticalStackLayout Padding="20,10" Spacing="15">
 
+
                             <!--  Title  -->
+
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="25"
@@ -119,7 +148,9 @@
                                 Text="Create a new order."
                                 VerticalOptions="Center" />
 
+
                             <!--  Name of the order  -->
+
                             <HorizontalStackLayout Spacing="3">
                                 <Label
                                     FontSize="20"
@@ -133,7 +164,9 @@
                                     WidthRequest="200" />
                             </HorizontalStackLayout>
 
+
                             <!--  Description of the order  -->
+
                             <VerticalStackLayout>
                                 <Label FontSize="20" Text="Description: " />
                                 <Border
@@ -151,7 +184,9 @@
                                         Text="{Binding CreateOrderDTO.Description}" />
                                 </Border>
                             </VerticalStackLayout>
+
                             <!--  Allowed Days  -->
+
                             <VerticalStackLayout>
                                 <Label FontSize="20" Text="Allowed Days: " />
                                 <Border
@@ -167,7 +202,9 @@
                                 </Border>
                             </VerticalStackLayout>
 
+
                             <!--  Cost  -->
+
                             <VerticalStackLayout Grid.Column="1">
                                 <Label FontSize="20" Text="Cost: " />
                                 <Border
@@ -193,7 +230,6 @@
                                 Text="Submit" />
                         </VerticalStackLayout>
                     </dxc:BottomSheet>
-
 
                 </Grid>
             </StackLayout>

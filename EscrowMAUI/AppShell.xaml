@@ -13,10 +13,21 @@
         <BackButtonBehavior IconOverride="back.png" />
     </Shell.BackButtonBehavior>
 
-    <ShellContent
+    <!--<ShellContent
         Title=""
         ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+        Route="MainPage" />-->
 
+    <TabBar x:Name="MyTab">
+        <!--<ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ConsumerDetailPage}"
+            Icon="userfilled.png" />
+
+        <ShellContent
+            Title="Orders"
+            ContentTemplate="{DataTemplate views:OrdersPage}"
+            Icon="userfilled.png" />-->
+    </TabBar>
 
 </Shell>

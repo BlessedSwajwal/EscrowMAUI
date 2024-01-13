@@ -6,6 +6,7 @@ using EscrowMAUI.Models;
 using EscrowMAUI.ProviderViews;
 using EscrowMAUI.Services;
 using EscrowMAUI.Views;
+using OneOf;
 
 namespace EscrowMAUI.ViewModel;
 
@@ -39,9 +40,22 @@ public partial class LoginViewModel : ObservableObject
     async Task LoginRequested()
     {
         await Task.CompletedTask;
-
         IsProcessing = true;
         var result = await _authServices.LoginAsync(User.Email, User.Password, User.UserType);
+        await HandleResult(result);
+    }
+
+    [RelayCommand]
+    async Task RegisterRequested()
+    {
+        await Task.CompletedTask;
+        IsProcessing = true;
+        var result = await _authServices.Register(User, User.UserType);
+        await HandleResult(result);
+    }
+
+    private async Task HandleResult(OneOf<User, Problem> result)
+    {
         await result.Match(
                 async userResponse =>
                 {
@@ -66,13 +80,6 @@ public partial class LoginViewModel : ObservableObject
                     await toast.Show();
                 }
             );
-    }
-
-    [RelayCommand]
-    async Task RegisterRequested()
-    {
-        var uu = User;
-        await Task.CompletedTask;
     }
 
     public async Task LoggedInCheck()

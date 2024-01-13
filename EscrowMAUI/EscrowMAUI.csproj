@@ -57,13 +57,17 @@
 	  <None Remove="Resources\Images\avatar.svg" />
 	  <None Remove="Resources\Images\back.svg" />
 	  <None Remove="Resources\Images\bank.svg" />
+	  <None Remove="Resources\Images\bid.svg" />
 	  <None Remove="Resources\Images\cash.svg" />
 	  <None Remove="Resources\Images\cashinhand.svg" />
+	  <None Remove="Resources\Images\dollarorder.svg" />
 	  <None Remove="Resources\Images\filledadd.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\order.svg" />
+	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\refresh.svg" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
+	  <None Remove="Resources\Images\userfilled.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
