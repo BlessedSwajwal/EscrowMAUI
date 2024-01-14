@@ -6,6 +6,7 @@ namespace EscrowMAUI.Views;
 public partial class OrderDetailPage : ContentPage
 {
     private readonly OrderDetailViewModel viewModel;
+    private Guid SelectedBidId;
     public OrderDetailPage(OrderDetailViewModel viewModel)
     {
         InitializeComponent();
@@ -35,4 +36,13 @@ public partial class OrderDetailPage : ContentPage
         ((Button)sender).BackgroundColor = Color.FromArgb("ac99ea");
     }
 
+    private void OpenPopup_Clicked(object sender, EventArgs e)
+    {
+        Popup.IsOpen = true;
+    }
+
+    private void ClosePopupButton_Clicked(object sender, EventArgs e)
+    {
+        Popup.IsOpen = false;
+    }
 }

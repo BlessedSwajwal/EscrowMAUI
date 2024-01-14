@@ -21,6 +21,15 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     bool _bidsRefreshing = false;
 
     [ObservableProperty]
+    bool _isKhaltiLoading = false;
+
+    [ObservableProperty]
+    bool _isStripeLoading = false;
+
+    [ObservableProperty]
+    Guid _bidId;
+
+    [ObservableProperty]
     bool _errorOccured = false;
     [ObservableProperty]
     string _errorDetail = "";
@@ -95,8 +104,9 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
     }
 
     [RelayCommand]
-    async Task AcceptBid(Guid BidId)
+    async Task AcceptBidWithKhalti()
     {
+        IsKhaltiLoading = true;
         var result = await _ordersService.AcceptBid(Order.Id, BidId);
         if (!string.IsNullOrWhiteSpace(result))
         {
@@ -104,7 +114,27 @@ public partial class OrderDetailViewModel : ObservableObject, INotifyPropertyCha
             await Browser.Default.OpenAsync(uri, BrowserLaunchMode.External);
             OnAppearing();
         }
-
+        IsKhaltiLoading = false;
     }
 
+    [RelayCommand]
+    async Task AcceptBidWithStripe()
+    {
+        IsStripeLoading = true;
+        var result = await _ordersService.AcceptBidWithStripe(Order.Id, BidId);
+        if (!string.IsNullOrWhiteSpace(result))
+        {
+            Uri uri = new(result);
+            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.External);
+            OnAppearing();
+        }
+        IsStripeLoading = false;
+    }
+
+
+    [RelayCommand]
+    public void SetBidId(Guid id)
+    {
+        BidId = id;
+    }
 }

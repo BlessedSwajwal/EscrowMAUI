@@ -3,6 +3,7 @@
     x:Class="EscrowMAUI.Views.OrderDetailPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
     xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
     xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:model="clr-namespace:EscrowMAUI.Models"
@@ -206,8 +207,9 @@
                                                 <!--  Accept Bid Button  -->
                                                 <Button
                                                     Margin="10,5"
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=AcceptBidCommand}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=SetBidIdCommand}"
                                                     CommandParameter="{Binding BidId}"
+                                                    Clicked="OpenPopup_Clicked"
                                                     HorizontalOptions="End"
                                                     IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=CanAcceptBid}"
                                                     Text="Accept" />
@@ -218,9 +220,78 @@
                             </dxcv:DXCollectionView>
                         </dxc:ShimmerView.Content>
                     </dxc:ShimmerView>
-                    <!--  Bid view  -->
 
+                    <!--  Payment Selection Popup  -->
+                    <dxc:DXPopup x:Name="Popup" AllowScrim="True">
+                        <Grid
+                            Padding="40,40,40,10"
+                            RowDefinitions="Auto, Auto"
+                            RowSpacing="10">
 
+                            <VerticalStackLayout Spacing="3">
+                                <Border>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=AcceptBidWithKhaltiCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid
+                                        Padding="10"
+                                        BackgroundColor="Purple"
+                                        ColumnDefinitions="Auto, Auto"
+                                        ColumnSpacing="30">
+                                        <Label
+                                            Text="Pay with Khalti"
+                                            TextColor="White"
+                                            VerticalOptions="Center" />
+                                        <Image
+                                            Grid.Column="1"
+                                            HeightRequest="30"
+                                            Source="https://upload.wikimedia.org/wikipedia/commons/e/ee/Khalti_Digital_Wallet_Logo.png.jpg"
+                                            WidthRequest="50" />
+
+                                        <ActivityIndicator
+                                            Grid.ColumnSpan="2"
+                                            HeightRequest="25"
+                                            IsRunning="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=IsKhaltiLoading}"
+                                            WidthRequest="25" />
+                                    </Grid>
+                                </Border>
+                                <Border>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=AcceptBidWithStripeCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Grid
+                                        Padding="10"
+                                        BackgroundColor="Gray"
+                                        ColumnDefinitions="Auto, Auto"
+                                        ColumnSpacing="30">
+                                        <Label
+                                            Text="Pay with Stripe"
+                                            TextColor="White"
+                                            VerticalOptions="Center" />
+                                        <ImageButton
+                                            Grid.Column="1"
+                                            Source="https://brandslogos.com/wp-content/uploads/images/stripe-logo-1.png"
+                                            WidthRequest="30" />
+
+                                        <ActivityIndicator
+                                            Grid.ColumnSpan="2"
+                                            HeightRequest="25"
+                                            IsRunning="{Binding Source={RelativeSource AncestorType={x:Type vm:OrderDetailViewModel}}, Path=IsStripeLoading}"
+                                            WidthRequest="25" />
+                                    </Grid>
+                                </Border>
+
+                                <Button
+                                    x:Name="ClosePopupButton"
+                                    Margin="0,30,0,0"
+                                    Clicked="ClosePopupButton_Clicked"
+                                    CornerRadius="22"
+                                    Text="Cancel"
+                                    WidthRequest="130" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </dxc:DXPopup>
                 </VerticalStackLayout>
             </Border>
         </Grid>

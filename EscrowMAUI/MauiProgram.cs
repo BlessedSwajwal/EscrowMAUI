@@ -29,6 +29,7 @@ namespace EscrowMAUI
             {
                 builder.Services.AddSingleton(sp => new HttpClient
                 {
+                    // BaseAddress = new Uri("https://dragonescrow.somee.com/api/")
                     BaseAddress = new Uri("https://skskkc9d-7240.asse.devtunnels.ms/api/")
                 });
             }

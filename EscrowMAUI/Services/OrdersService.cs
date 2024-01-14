@@ -116,6 +116,20 @@ public class OrdersService(HttpClient httpClient)
         return "";
     }
 
+    public async Task<string> AcceptBidWithStripe(Guid OrderId, Guid BidId)
+    {
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Preferences.Default.Get<string>(Constants.Constants.TokenKeyConstant, string.Empty));
+
+        var response = await httpClient.GetAsync($"Order/{OrderId}/AcceptBidWithStripe?BidId={BidId}");
+        if (response.IsSuccessStatusCode)
+        {
+            var paymentdetails = await response.Content.ReadFromJsonAsync<PaymentUriResponse>();
+            return paymentdetails.PaymentUri;
+        }
+        return "";
+    }
+
     public async Task<OneOf<Bid, Problem>> CreateBid(Guid OrderId, CreateBidDTO BidDTO)
     {
         Object payload = new

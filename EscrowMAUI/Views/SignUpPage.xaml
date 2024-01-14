@@ -162,6 +162,7 @@
                                             x:Name="PhoneValidationBehavior"
                                             Flags="ValidateOnValueChanged"
                                             InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="10"
                                             MinimumLength="10"
                                             ValidStyle="{StaticResource ValidEntryStyle}" />
                                     </Entry.Behaviors>
